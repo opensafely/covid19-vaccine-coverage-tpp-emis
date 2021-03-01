@@ -197,6 +197,7 @@ study = StudyDefinition(
         ignore_missing_values=True,
         find_last_match_in_period=True,
         on_or_after="bmi_stage_dat",
+        on_or_before="index_date",
     ),
     # Diabetes resolved codes
     dmres_dat=patients.with_these_clinical_events(
