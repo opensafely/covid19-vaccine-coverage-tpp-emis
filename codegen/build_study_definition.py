@@ -136,6 +136,8 @@ def get_study_definition_params(extraction_criteria):
         elif re.search("[12]rx", name):
             variable_type = "with_vaccination_record"
             product_name = VACC_PRODUCT_NAMES[name[:2]]
+            if product_name == "TODO":
+                continue
             kwargs["tpp"] = {
                 "product_name_matches": f'"{product_name}"',
             }
@@ -148,7 +150,7 @@ def get_study_definition_params(extraction_criteria):
         elif re.match("covrx[12]", name):
             variable_type = "with_vaccination_record"
             product_names = ", ".join(
-                f'"{name}"' for name in VACC_PRODUCT_NAMES.values()
+                f'"{name}"' for name in VACC_PRODUCT_NAMES.values() if name != "TODO"
             )
             kwargs["tpp"] = {"product_name_matches": f"[{product_names}]"}
             kwargs["emis"] = {

@@ -339,62 +339,6 @@ study = StudyDefinition(
         on_or_after="azd1rx_dat + 19 days",
         date_format="YYYY-MM-DD",
     ),
-    # First Moderna vaccination medication code
-    mod1rx_dat=patients.with_vaccination_record(
-        returning="date",
-        tpp={
-            "product_name_matches": "TODO",
-        },
-        emis={
-            "product_codes": codelists.modrx,
-        },
-        find_first_match_in_period=True,
-        on_or_before="index_date",
-        on_or_after="2020-11-29",
-        date_format="YYYY-MM-DD",
-    ),
-    # Second Moderna vaccination medication code
-    mod2rx_dat=patients.with_vaccination_record(
-        returning="date",
-        tpp={
-            "product_name_matches": "TODO",
-        },
-        emis={
-            "product_codes": codelists.modrx,
-        },
-        find_last_match_in_period=True,
-        on_or_before="index_date",
-        on_or_after="mod1rx_dat + 19 days",
-        date_format="YYYY-MM-DD",
-    ),
-    # First Janssen vaccination medication code - may only be single vaccination
-    jnd1rx_dat=patients.with_vaccination_record(
-        returning="date",
-        tpp={
-            "product_name_matches": "TODO",
-        },
-        emis={
-            "product_codes": codelists.jndrx,
-        },
-        find_first_match_in_period=True,
-        on_or_before="index_date",
-        on_or_after="2020-11-29",
-        date_format="YYYY-MM-DD",
-    ),
-    # Second Janssen vaccination medication code - may only be single vaccination
-    jnd2rx_dat=patients.with_vaccination_record(
-        returning="date",
-        tpp={
-            "product_name_matches": "TODO",
-        },
-        emis={
-            "product_codes": codelists.jndrx,
-        },
-        find_last_match_in_period=True,
-        on_or_before="index_date",
-        on_or_after="jnd1rx_dat + 19 days",
-        date_format="YYYY-MM-DD",
-    ),
     # First COVID vaccination medication code (any)
     covrx1_dat=patients.with_vaccination_record(
         returning="date",
@@ -402,8 +346,6 @@ study = StudyDefinition(
             "product_name_matches": [
                 "COVID-19 mRNA Vac BNT162b2 30mcg/0.3ml conc for susp for inj multidose vials (Pfizer-BioNTech)",
                 "COVID-19 Vac AstraZeneca (ChAdOx1 S recomb) 5x10000000000 viral particles/0.5ml dose sol for inj MDV",
-                "TODO",
-                "TODO",
             ],
         },
         emis={
@@ -421,8 +363,6 @@ study = StudyDefinition(
             "product_name_matches": [
                 "COVID-19 mRNA Vac BNT162b2 30mcg/0.3ml conc for susp for inj multidose vials (Pfizer-BioNTech)",
                 "COVID-19 Vac AstraZeneca (ChAdOx1 S recomb) 5x10000000000 viral particles/0.5ml dose sol for inj MDV",
-                "TODO",
-                "TODO",
             ],
         },
         emis={
