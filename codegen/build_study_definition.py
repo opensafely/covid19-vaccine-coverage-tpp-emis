@@ -111,6 +111,7 @@ def get_study_definition_params(extraction_criteria):
                 ignore_missing_values=True,
                 find_last_match_in_period=True,
                 on_or_before='"index_date"',
+                date_format='"YYYY-MM-DD"',
             )
 
         elif name == "sev_obesity":
@@ -121,6 +122,7 @@ def get_study_definition_params(extraction_criteria):
                 find_last_match_in_period=True,
                 on_or_after='"bmi_stage_dat"',
                 on_or_before='"index_date"',
+                date_format='"YYYY-MM-DD"',
             )
 
         elif name.startswith("covadm"):
@@ -184,6 +186,7 @@ def get_study_definition_params(extraction_criteria):
 
         if name == "bmi":
             kwargs = kwargs.copy()
+            del kwargs["date_format"]
             kwargs.update(
                 returning='"numeric_value"',
                 return_expectations={
