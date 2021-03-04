@@ -10,3 +10,24 @@ actions:
     outputs:
       highly_sensitive:
         cohort: output/input.csv
+
+  transform:
+    run: python:latest python analysis/transform.py output/input.csv
+    needs: [generate_study_population]
+    outputs:
+      highly_sensitive:
+        cohort: output/cohort.pickle
+
+  count_prevalences:
+    run: python:latest python analysis/count_prevalences.py
+    needs: [transform]
+    outputs:
+      moderately_sensitive:
+        cohort: output/prevalences_*.pickle
+
+  compute_uptake:
+    run: python:latest python analysis/compute_uptake.py
+    needs: [transform]
+    outputs:
+      moderately_sensitive:
+        cohort: output/uptake_*.pickle
