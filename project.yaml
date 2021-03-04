@@ -24,3 +24,10 @@ actions:
     outputs:
       moderately_sensitive:
         cohort: output/prevalences_*.pickle
+
+  compute_uptake:
+    run: python:latest python analysis/compute_uptake.py
+    needs: [transform]
+    outputs:
+      moderately_sensitive:
+        cohort: output/uptake_*.pickle
