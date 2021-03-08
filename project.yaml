@@ -30,4 +30,4 @@ actions:
     needs: [transform]
     outputs:
       moderately_sensitive:
-        cohort: output/uptake_*.pickle
+        cohort: output/coverage_*.csv

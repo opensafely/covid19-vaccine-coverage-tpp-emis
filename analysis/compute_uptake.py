@@ -19,17 +19,17 @@ def run(input_path="output/cohort.pickle", output_dir="output"):
     ]
 
     for col in demographic_cols:
-        path = f"{output_dir}/uptake_by_{col}_{backend}.pickle"
-        compute_uptake(cohort, "vacc1_dat", col).to_pickle(path)
+        path = f"{output_dir}/coverage_by_{col}_{backend}.csv"
+        compute_uptake(cohort, "vacc1_dat", col).to_csv(path)
 
         for group_col in group_cols:
             group_cohort = cohort[cohort[group_col]]
-            path = f"{output_dir}/uptake_for_{group_col}_by_{col}_{backend}.pickle"
-            compute_uptake(group_cohort, "vacc1_dat", col).to_pickle(path)
+            path = f"{output_dir}/coverage_for_{group_col}_by_{col}_{backend}.csv"
+            compute_uptake(group_cohort, "vacc1_dat", col).to_csv(path)
 
     for col in group_cols:
-        path = f"{output_dir}/uptake_by_{col}_{backend}.pickle"
-        compute_uptake(cohort, "vacc1_dat", col).to_pickle(path)
+        path = f"{output_dir}/coverage_by_{col}_{backend}.csv"
+        compute_uptake(cohort, "vacc1_dat", col).to_csv(path)
 
 
 def compute_uptake(cohort, event_col, stratification_col):
