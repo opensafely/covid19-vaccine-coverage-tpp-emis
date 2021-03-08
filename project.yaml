@@ -31,3 +31,11 @@ actions:
     outputs:
       moderately_sensitive:
         cohort: output/coverage_*.csv
+
+  report_uptake:
+    run: python:latest python analysis/report_uptake.py
+    needs: [compute_uptake]
+    outputs:
+      moderately_sensitive:
+        report: output/report_*.html
+        charts: output/coverage_*.png
