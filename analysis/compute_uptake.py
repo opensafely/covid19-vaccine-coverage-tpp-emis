@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 
+from groups import groups
+
 
 def run(input_path="output/cohort.pickle", output_dir="output"):
     """Produce dataframes computing uptake stratified by age band, sex, and high-level
@@ -11,20 +13,23 @@ def run(input_path="output/cohort.pickle", output_dir="output"):
     backend = os.getenv("OPENSAFELY_BACKEND", "expectations")
 
     cohort = pd.read_pickle(input_path)
-    groups = [
-        col
-        for col in cohort.columns
-        if col.endswith("_group") and "covax" not in col and "unstatvacc" not in col
+    demographic_cols = ["age_band", "sex", "high_level_ethnicity"]
+    group_cols = [
+        group for group in groups if "covax" not in group and "unstatvacc" not in group
     ]
 
-    for col in ["age_band", "sex", "high_level_ethnicity"]:
+    for col in demographic_cols:
         path = f"{output_dir}/uptake_by_{col}_{backend}.pickle"
         compute_uptake(cohort, "vacc1_dat", col).to_pickle(path)
 
-        for group in groups:
-            group_cohort = cohort[cohort[group]]
-            path = f"{output_dir}/uptake_for_{group}_by_{col}_{backend}.pickle"
+        for group_col in group_cols:
+            group_cohort = cohort[cohort[group_col]]
+            path = f"{output_dir}/uptake_for_{group_col}_by_{col}_{backend}.pickle"
             compute_uptake(group_cohort, "vacc1_dat", col).to_pickle(path)
+
+    for col in group_cols:
+        path = f"{output_dir}/uptake_by_{col}_{backend}.pickle"
+        compute_uptake(cohort, "vacc1_dat", col).to_pickle(path)
 
 
 def compute_uptake(cohort, event_col, stratification_col):
