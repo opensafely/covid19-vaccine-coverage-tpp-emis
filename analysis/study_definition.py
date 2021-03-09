@@ -47,32 +47,6 @@ study = StudyDefinition(
         find_last_match_in_period=True,
         date_format="YYYY-MM-DD",
     ),
-    # Asthma systemic steroid prescription code in month 1
-    astrxm1_dat=patients.with_these_medications(
-        codelists.astrx,
-        returning="date",
-        find_last_match_in_period=True,
-        on_or_after="index_date - 30 days",
-        date_format="YYYY-MM-DD",
-    ),
-    # Asthma systemic steroid prescription code in month 2
-    astrxm2_dat=patients.with_these_medications(
-        codelists.astrx,
-        returning="date",
-        find_last_match_in_period=True,
-        on_or_before="index_date - 31 days",
-        on_or_after="index_date - 60 days",
-        date_format="YYYY-MM-DD",
-    ),
-    # Asthma systemic steroid prescription code in month 3
-    astrxm3_dat=patients.with_these_medications(
-        codelists.astrx,
-        returning="date",
-        find_last_match_in_period=True,
-        on_or_before="index_date - 61 days",
-        on_or_after="index_date - 90 days",
-        date_format="YYYY-MM-DD",
-    ),
     # Chronic Respiratory Disease
     resp_cov_dat=patients.with_these_clinical_events(
         codelists.resp_cov,
@@ -129,14 +103,6 @@ study = StudyDefinition(
         find_last_match_in_period=True,
         date_format="YYYY-MM-DD",
     ),
-    # Immunosuppression medication codes
-    immrx_dat=patients.with_these_medications(
-        codelists.immrx,
-        returning="date",
-        find_last_match_in_period=True,
-        on_or_after="2020-07-01",
-        date_format="YYYY-MM-DD",
-    ),
     # Chronic Neurological Disease including Significant Learning Disorder
     cns_cov_dat=patients.with_these_clinical_events(
         codelists.cns_cov,
@@ -151,40 +117,11 @@ study = StudyDefinition(
         find_first_match_in_period=True,
         date_format="YYYY-MM-DD",
     ),
-    # BMI
-    bmi_dat=patients.with_these_clinical_events(
-        codelists.bmi,
-        returning="date",
-        ignore_missing_values=True,
-        find_last_match_in_period=True,
-        on_or_before="index_date",
-        date_format="YYYY-MM-DD",
-    ),
-    bmi_val=patients.with_these_clinical_events(
-        codelists.bmi,
-        returning="numeric_value",
-        ignore_missing_values=True,
-        find_last_match_in_period=True,
-        on_or_before="index_date",
-        return_expectations={
-            "float": {"distribution": "normal", "mean": 25, "stddev": 5},
-        },
-    ),
     # All BMI coded terms
     bmi_stage_dat=patients.with_these_clinical_events(
         codelists.bmi_stage,
         returning="date",
         find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Severe Obesity code recorded
-    sev_obesity_dat=patients.with_these_clinical_events(
-        codelists.sev_obesity,
-        returning="date",
-        ignore_missing_values=True,
-        find_last_match_in_period=True,
-        on_or_after="bmi_stage_dat",
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Diabetes resolved codes
@@ -234,6 +171,160 @@ study = StudyDefinition(
         codelists.learndis,
         returning="date",
         find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Carer codes
+    carer_dat=patients.with_these_clinical_events(
+        codelists.carer,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # No longer a carer codes
+    notcarer_dat=patients.with_these_clinical_events(
+        codelists.notcarer,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Employed by Care Home codes
+    carehome_dat=patients.with_these_clinical_events(
+        codelists.carehome,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Employed by nursing home codes
+    nursehome_dat=patients.with_these_clinical_events(
+        codelists.nursehome,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Employed by domiciliary care provider codes
+    domcare_dat=patients.with_these_clinical_events(
+        codelists.domcare,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Patients in long-stay nursing and residential care
+    longres_dat=patients.with_these_clinical_events(
+        codelists.longres,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Any other ethnicity code
+    non_eth2001_dat=patients.with_these_clinical_events(
+        codelists.non_eth2001,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Ethnicity not given - patient refused
+    eth_notgiptref_dat=patients.with_these_clinical_events(
+        codelists.eth_notgiptref,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Ethnicity not stated
+    eth_notstated_dat=patients.with_these_clinical_events(
+        codelists.eth_notstated,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Ethnicity no record
+    eth_norecord_dat=patients.with_these_clinical_events(
+        codelists.eth_norecord,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # COVID vaccination contraindication codes
+    covcontra_dat=patients.with_these_clinical_events(
+        codelists.covcontra,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # First COVID vaccination declined
+    cov1decl_dat=patients.with_these_clinical_events(
+        codelists.cov1decl,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Second COVID vaccination declined
+    cov2decl_dat=patients.with_these_clinical_events(
+        codelists.cov2decl,
+        returning="date",
+        find_last_match_in_period=True,
+        date_format="YYYY-MM-DD",
+    ),
+    # Asthma systemic steroid prescription code in month 1
+    astrxm1_dat=patients.with_these_medications(
+        codelists.astrx,
+        returning="date",
+        find_last_match_in_period=True,
+        on_or_after="index_date - 30 days",
+        date_format="YYYY-MM-DD",
+    ),
+    # Asthma systemic steroid prescription code in month 2
+    astrxm2_dat=patients.with_these_medications(
+        codelists.astrx,
+        returning="date",
+        find_last_match_in_period=True,
+        on_or_before="index_date - 31 days",
+        on_or_after="index_date - 60 days",
+        date_format="YYYY-MM-DD",
+    ),
+    # Asthma systemic steroid prescription code in month 3
+    astrxm3_dat=patients.with_these_medications(
+        codelists.astrx,
+        returning="date",
+        find_last_match_in_period=True,
+        on_or_before="index_date - 61 days",
+        on_or_after="index_date - 90 days",
+        date_format="YYYY-MM-DD",
+    ),
+    # Immunosuppression medication codes
+    immrx_dat=patients.with_these_medications(
+        codelists.immrx,
+        returning="date",
+        find_last_match_in_period=True,
+        on_or_after="2020-07-01",
+        date_format="YYYY-MM-DD",
+    ),
+    # BMI
+    bmi_dat=patients.with_these_clinical_events(
+        codelists.bmi,
+        returning="date",
+        ignore_missing_values=True,
+        find_last_match_in_period=True,
+        on_or_before="index_date",
+        date_format="YYYY-MM-DD",
+    ),
+    bmi_val=patients.with_these_clinical_events(
+        codelists.bmi,
+        returning="numeric_value",
+        ignore_missing_values=True,
+        find_last_match_in_period=True,
+        on_or_before="index_date",
+        return_expectations={
+            "float": {"distribution": "normal", "mean": 25, "stddev": 5},
+        },
+    ),
+    # Severe Obesity code recorded
+    sev_obesity_dat=patients.with_these_clinical_events(
+        codelists.sev_obesity,
+        returning="date",
+        ignore_missing_values=True,
+        find_last_match_in_period=True,
+        on_or_after="bmi_stage_dat",
+        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # First COVID vaccination administration codes
@@ -346,48 +437,6 @@ study = StudyDefinition(
         on_or_after="covrx1_dat + 19 days",
         date_format="YYYY-MM-DD",
     ),
-    # Carer codes
-    carer_dat=patients.with_these_clinical_events(
-        codelists.carer,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # No longer a carer codes
-    notcarer_dat=patients.with_these_clinical_events(
-        codelists.notcarer,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Employed by Care Home codes
-    carehome_dat=patients.with_these_clinical_events(
-        codelists.carehome,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Employed by nursing home codes
-    nursehome_dat=patients.with_these_clinical_events(
-        codelists.nursehome,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Employed by domiciliary care provider codes
-    domcare_dat=patients.with_these_clinical_events(
-        codelists.domcare,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Patients in long-stay nursing and residential care
-    longres_dat=patients.with_these_clinical_events(
-        codelists.longres,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
     # Ethnicity
     eth2001=patients.with_these_clinical_events(
         codelists.eth2001,
@@ -410,34 +459,6 @@ study = StudyDefinition(
             "rate": "universal",
         },
     ),
-    # Any other ethnicity code
-    non_eth2001_dat=patients.with_these_clinical_events(
-        codelists.non_eth2001,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Ethnicity not given - patient refused
-    eth_notgiptref_dat=patients.with_these_clinical_events(
-        codelists.eth_notgiptref,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Ethnicity not stated
-    eth_notstated_dat=patients.with_these_clinical_events(
-        codelists.eth_notstated,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Ethnicity no record
-    eth_norecord_dat=patients.with_these_clinical_events(
-        codelists.eth_norecord,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
     # Pregnancy or Delivery codes recorded in the 8.5 months before audit run date
     pregdel_dat=patients.with_these_clinical_events(
         codelists.pregdel,
@@ -452,27 +473,6 @@ study = StudyDefinition(
         returning="date",
         find_last_match_in_period=True,
         on_or_after="index_date - 253 days",
-        date_format="YYYY-MM-DD",
-    ),
-    # COVID vaccination contraindication codes
-    covcontra_dat=patients.with_these_clinical_events(
-        codelists.covcontra,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # First COVID vaccination declined
-    cov1decl_dat=patients.with_these_clinical_events(
-        codelists.cov1decl,
-        returning="date",
-        find_last_match_in_period=True,
-        date_format="YYYY-MM-DD",
-    ),
-    # Second COVID vaccination declined
-    cov2decl_dat=patients.with_these_clinical_events(
-        codelists.cov2decl,
-        returning="date",
-        find_last_match_in_period=True,
         date_format="YYYY-MM-DD",
     ),
 )

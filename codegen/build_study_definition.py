@@ -202,7 +202,16 @@ def get_study_definition_params(extraction_criteria):
                 }
             )
 
-    return study_definition_params
+    non_date_params = []
+    date_params = []
+
+    for params in study_definition_params:
+        if "on_or_before" in params["kwargs"] or "on_or_after" in params["kwargs"]:
+            date_params.append(params)
+        else:
+            non_date_params.append(params)
+
+    return non_date_params + date_params
 
 
 def get_date_criteria_kwargs(r):
