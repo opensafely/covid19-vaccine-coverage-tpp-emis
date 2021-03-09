@@ -38,7 +38,6 @@ study = StudyDefinition(
         codelists.ast,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Asthma Admission codes
@@ -46,7 +45,6 @@ study = StudyDefinition(
         codelists.astadm,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Asthma systemic steroid prescription code in month 1
@@ -80,7 +78,6 @@ study = StudyDefinition(
         codelists.resp_cov,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Chronic heart disease codes
@@ -88,7 +85,6 @@ study = StudyDefinition(
         codelists.chd_cov,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Chronic kidney disease diagnostic codes
@@ -96,7 +92,6 @@ study = StudyDefinition(
         codelists.ckd_cov,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Chronic kidney disease codes - all stages
@@ -104,7 +99,6 @@ study = StudyDefinition(
         codelists.ckd15,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Chronic kidney disease codes-stages 3 - 5
@@ -112,7 +106,6 @@ study = StudyDefinition(
         codelists.ckd35,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Chronic Liver disease codes
@@ -120,7 +113,6 @@ study = StudyDefinition(
         codelists.cld,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Diabetes diagnosis codes
@@ -128,7 +120,6 @@ study = StudyDefinition(
         codelists.diab,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Immunosuppression diagnosis codes
@@ -136,7 +127,6 @@ study = StudyDefinition(
         codelists.immdx_cov,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Immunosuppression medication codes
@@ -144,7 +134,6 @@ study = StudyDefinition(
         codelists.immrx,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="2020-07-01",
         date_format="YYYY-MM-DD",
     ),
@@ -153,7 +142,6 @@ study = StudyDefinition(
         codelists.cns_cov,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Asplenia or Dysfunction of the Spleen codes
@@ -161,7 +149,6 @@ study = StudyDefinition(
         codelists.spln_cov,
         returning="date",
         find_first_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # BMI
@@ -188,7 +175,6 @@ study = StudyDefinition(
         codelists.bmi_stage,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Severe Obesity code recorded
@@ -206,7 +192,6 @@ study = StudyDefinition(
         codelists.dmres,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Severe Mental Illness codes
@@ -214,7 +199,6 @@ study = StudyDefinition(
         codelists.sev_mental,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Remission codes relating to Severe Mental Illness
@@ -222,7 +206,6 @@ study = StudyDefinition(
         codelists.smhres,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # High Risk from COVID-19 code
@@ -230,7 +213,6 @@ study = StudyDefinition(
         codelists.shield,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Lower Risk from COVID-19 codes
@@ -238,7 +220,6 @@ study = StudyDefinition(
         codelists.nonshield,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # to represent household contact of shielding individual
@@ -246,7 +227,6 @@ study = StudyDefinition(
         codelists.hhld_imdef,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Wider Learning Disability
@@ -254,7 +234,6 @@ study = StudyDefinition(
         codelists.learndis,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # First COVID vaccination administration codes
@@ -267,7 +246,6 @@ study = StudyDefinition(
             "procedure_codes": codelists.covadm1,
         },
         find_first_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="2020-11-29",
         date_format="YYYY-MM-DD",
     ),
@@ -281,7 +259,6 @@ study = StudyDefinition(
             "procedure_codes": codelists.covadm2,
         },
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="covadm1_dat + 19 days",
         date_format="YYYY-MM-DD",
     ),
@@ -295,7 +272,6 @@ study = StudyDefinition(
             "product_codes": codelists.pfdrx,
         },
         find_first_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="2020-11-29",
         date_format="YYYY-MM-DD",
     ),
@@ -309,7 +285,6 @@ study = StudyDefinition(
             "product_codes": codelists.pfdrx,
         },
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="pfd1rx_dat + 19 days",
         date_format="YYYY-MM-DD",
     ),
@@ -323,7 +298,6 @@ study = StudyDefinition(
             "product_codes": codelists.azdrx,
         },
         find_first_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="2020-11-29",
         date_format="YYYY-MM-DD",
     ),
@@ -337,7 +311,6 @@ study = StudyDefinition(
             "product_codes": codelists.azdrx,
         },
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="azd1rx_dat + 19 days",
         date_format="YYYY-MM-DD",
     ),
@@ -354,7 +327,6 @@ study = StudyDefinition(
             "product_codes": codelists.covrx,
         },
         find_first_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="2020-11-29",
         date_format="YYYY-MM-DD",
     ),
@@ -371,7 +343,6 @@ study = StudyDefinition(
             "product_codes": codelists.covrx,
         },
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="covrx1_dat + 19 days",
         date_format="YYYY-MM-DD",
     ),
@@ -380,7 +351,6 @@ study = StudyDefinition(
         codelists.carer,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # No longer a carer codes
@@ -388,7 +358,6 @@ study = StudyDefinition(
         codelists.notcarer,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Employed by Care Home codes
@@ -396,7 +365,6 @@ study = StudyDefinition(
         codelists.carehome,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Employed by nursing home codes
@@ -404,7 +372,6 @@ study = StudyDefinition(
         codelists.nursehome,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Employed by domiciliary care provider codes
@@ -412,7 +379,6 @@ study = StudyDefinition(
         codelists.domcare,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Patients in long-stay nursing and residential care
@@ -420,7 +386,6 @@ study = StudyDefinition(
         codelists.longres,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Ethnicity
@@ -450,7 +415,6 @@ study = StudyDefinition(
         codelists.non_eth2001,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Ethnicity not given - patient refused
@@ -458,7 +422,6 @@ study = StudyDefinition(
         codelists.eth_notgiptref,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Ethnicity not stated
@@ -466,7 +429,6 @@ study = StudyDefinition(
         codelists.eth_notstated,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Ethnicity no record
@@ -474,7 +436,6 @@ study = StudyDefinition(
         codelists.eth_norecord,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Pregnancy or Delivery codes recorded in the 8.5 months before audit run date
@@ -482,7 +443,6 @@ study = StudyDefinition(
         codelists.pregdel,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="index_date - 253 days",
         date_format="YYYY-MM-DD",
     ),
@@ -491,7 +451,6 @@ study = StudyDefinition(
         codelists.preg,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         on_or_after="index_date - 253 days",
         date_format="YYYY-MM-DD",
     ),
@@ -500,7 +459,6 @@ study = StudyDefinition(
         codelists.covcontra,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # First COVID vaccination declined
@@ -508,7 +466,6 @@ study = StudyDefinition(
         codelists.cov1decl,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
     # Second COVID vaccination declined
@@ -516,7 +473,6 @@ study = StudyDefinition(
         codelists.cov2decl,
         returning="date",
         find_last_match_in_period=True,
-        on_or_before="index_date",
         date_format="YYYY-MM-DD",
     ),
 )

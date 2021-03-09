@@ -221,7 +221,8 @@ def get_date_criteria_kwargs(r):
 
     for fragment in sorted(criteria[match.span()[1]:].split("and")):
         k, v = get_date_criteria_param(fragment)
-        kwargs[k] = v
+        if v != '"index_date"':
+            kwargs[k] = v
 
     kwargs["date_format"] = '"YYYY-MM-DD"'
 
