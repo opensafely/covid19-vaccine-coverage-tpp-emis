@@ -156,7 +156,7 @@ def get_study_definition_params(extraction_criteria):
             )
             kwargs["tpp"] = {"product_name_matches": f"[{product_names}]"}
             kwargs["emis"] = {
-                "product_codes": f"codelists.covrx",
+                "product_codes": "codelists.covrx",
             }
             kwargs.update(get_date_criteria_kwargs(r))
 
@@ -219,7 +219,7 @@ def get_date_criteria_kwargs(r):
     else:
         kwargs = {"find_first_match_in_period": True}
 
-    for fragment in sorted(criteria[match.span()[1] :].split("and")):
+    for fragment in sorted(criteria[match.span()[1]:].split("and")):
         k, v = get_date_criteria_param(fragment)
         kwargs[k] = v
 
