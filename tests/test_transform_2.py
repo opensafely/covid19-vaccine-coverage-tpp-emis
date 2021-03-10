@@ -4,12 +4,13 @@ from pandas.testing import assert_frame_equal
 from pandas.testing import assert_index_equal
 
 from analysis.transform import load_raw_cohort, transform
-from analysis.transform_2 import transform_2
+from analysis.transform_2 import transform_2, necessary_cols
 
 
 def test_transform_2():
     raw_cohort = load_raw_cohort("tests/input.csv")
     cohort = transform(raw_cohort).reset_index(drop=True)
+    cohort = cohort[necessary_cols]
 
     with open("tests/input.csv") as f:
         reader = csv.DictReader(f)

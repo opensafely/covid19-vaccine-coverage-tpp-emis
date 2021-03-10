@@ -7,6 +7,12 @@ from age_bands import age_bands
 from add_groupings_2 import add_groupings_2
 from groups import groups
 
+demographic_cols = ["age_band", "sex", "high_level_ethnicity"]
+group_cols = [
+    group for group in groups if "covax" not in group and "unstatvacc" not in group
+]
+necessary_cols = demographic_cols + group_cols + ["patient_id", "vacc1_dat", "vacc2_dat"]
+
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
     with open(input_path) as f:
@@ -27,6 +33,7 @@ def transform_2(reader):
         extra_fieldnames.append(f"{prefix}d1rx_dat")
         extra_fieldnames.append(f"{prefix}d2rx_dat")
     fieldnames = reader.fieldnames + extra_fieldnames + list(groups)
+    fieldnames = [fn for fn in fieldnames if fn in necessary_cols]
 
     with NamedTemporaryFile("w+") as f:
         writer = csv.DictWriter(f, fieldnames)
@@ -38,10 +45,9 @@ def transform_2(reader):
 
         # We set parse_dates and dtype to ensure that the returned dataframe is
         # identical to that returned by the original transform.
-        date_fieldnames = [fn for fn in fieldnames if fn.endswith("_dat")]
-        for prefix in ["mo", "nx", "jn", "gs", "vl"]:
-            date_fieldnames.remove(f"{prefix}d1rx_dat")
-            date_fieldnames.remove(f"{prefix}d2rx_dat")
+        date_fieldnames = [
+            fn for fn in fieldnames if fn.endswith("_dat") and fn in necessary_cols
+        ]
         dtypes = {"ethnicity": "int8", "high_level_ethnicity": "int8"}
         cohort = pd.read_csv(f.name, parse_dates=date_fieldnames, dtype=dtypes)
 
@@ -61,6 +67,7 @@ def transform_rows(rows):
         add_vacc_dates(row)
         add_age_bands(row, range(1, 12 + 1))
         add_groupings_2(row)
+        row = {k: v for k, v in row.items() if k in necessary_cols}
         yield row
 
 
