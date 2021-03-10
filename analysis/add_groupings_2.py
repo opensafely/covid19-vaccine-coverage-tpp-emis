@@ -310,6 +310,6 @@ def gte(lhs, rhs):
         return True
 
     if isinstance(rhs, int):
-        lhs = int(lhs)
+        lhs = float(lhs)
 
     return lhs >= rhs
