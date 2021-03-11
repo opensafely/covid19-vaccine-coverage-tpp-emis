@@ -33,6 +33,39 @@ study = StudyDefinition(
             "rate": "universal",
         },
     ),
+    # Index of multiple deprivation
+    imd=patients.address_as_of(
+        "index_date",
+        returning="index_of_multiple_deprivation",
+        round_to_nearest=100,
+        return_expectations={
+            "category": {
+                "ratios": {
+                    "1": 0.2,
+                    "6001": 0.2,
+                    "12001": 0.2,
+                    "18001": 0.2,
+                    "24001": 0.2,
+                }
+            },
+        },
+    ),
+    # STP (regional grouping of practices)
+    stp=patients.registered_practice_as_of(
+        "index_date",
+        returning="stp_code",
+        return_expectations={
+            "category": {
+                "ratios": {
+                    "STP0": 0.2,
+                    "STP1": 0.2,
+                    "STP2": 0.2,
+                    "STP3": 0.2,
+                    "STP4": 0.2,
+                }
+            },
+        },
+    ),
     # Asthma Diagnosis code
     ast_dat=patients.with_these_clinical_events(
         codelists.ast,

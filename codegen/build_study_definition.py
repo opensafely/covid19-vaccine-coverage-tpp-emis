@@ -64,6 +64,35 @@ def get_study_definition_params(extraction_criteria):
                 },
             },
         },
+        {
+            "name": "imd",
+            "comment": "Index of multiple deprivation",
+            "type": "address_as_of",
+            "args": ['"index_date"'],
+            "kwargs": {
+                "returning": '"index_of_multiple_deprivation"',
+                "round_to_nearest": 100,
+                "return_expectations": {
+                    "category": {
+                        "ratios": {str(i * 6000 + 1): 0.2 for i in range(5)}
+                    },
+                },
+            },
+        },
+        {
+            "name": "stp",
+            "comment": "STP (regional grouping of practices)",
+            "type": "registered_practice_as_of",
+            "args": ['"index_date"'],
+            "kwargs": {
+                "returning": '"stp_code"',
+                "return_expectations": {
+                    "category": {
+                        "ratios": {f"STP{ix}": 0.2 for ix in range(5)}
+                    },
+                },
+            },
+        },
     ]
 
     seen_ethnicity = False
