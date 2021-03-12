@@ -5,22 +5,7 @@ import pandas as pd
 
 from age_bands import age_bands
 from add_groupings_2 import add_groupings_2
-from groups import groups
-
-demographic_cols = ["age_band", "sex", "high_level_ethnicity", "imd_band"]
-
-group_cols = [
-    group for group in groups if "covax" not in group and "unstatvacc" not in group
-]
-
-extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat", "wave"]
-
-extra_vacc_cols = []
-for prefix in ["mo", "nx", "jn", "gs", "vl"]:
-    extra_vacc_cols.append(f"{prefix}d1rx_dat")
-    extra_vacc_cols.append(f"{prefix}d2rx_dat")
-
-necessary_cols = demographic_cols + group_cols + extra_cols + extra_vacc_cols
+from transform import extra_at_risk_cols, extra_vacc_cols, necessary_cols
 
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
@@ -70,6 +55,7 @@ def transform_rows(rows):
         add_age_bands(row, range(1, 12 + 1))
         add_groupings_2(row)
         add_waves(row)
+        add_extra_at_risk_cols(row)
         row = {k: v for k, v in row.items() if k in necessary_cols}
         yield row
 
@@ -236,6 +222,15 @@ def add_waves(row):
 
     else:
         row["wave"] = 0
+
+
+def add_extra_at_risk_cols(row):
+    """Add columns for extra at-risk groups."""
+
+    for col in extra_at_risk_cols:
+        date_col = col.replace("_group", "_dat")
+        if date_col in row:
+            row[col] = bool(row[date_col])
 
 
 if __name__ == "__main__":

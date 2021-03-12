@@ -5,6 +5,27 @@ import pandas as pd
 
 from age_bands import add_age_bands
 from add_groupings import add_groupings
+from groups import at_risk_groups, groups
+
+
+demographic_cols = ["age_band", "sex", "high_level_ethnicity", "imd_band"]
+
+group_cols = [
+    group for group in groups if "covax" not in group and "unstatvacc" not in group
+]
+
+extra_at_risk_cols = [group for group in at_risk_groups if group not in group_cols]
+
+extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat", "wave"]
+
+extra_vacc_cols = []
+for prefix in ["mo", "nx", "jn", "gs", "vl"]:
+    extra_vacc_cols.append(f"{prefix}d1rx_dat")
+    extra_vacc_cols.append(f"{prefix}d2rx_dat")
+
+necessary_cols = (
+    demographic_cols + group_cols + extra_at_risk_cols + extra_cols + extra_vacc_cols
+)
 
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
@@ -39,6 +60,7 @@ def transform(cohort):
     add_age_bands(cohort, range(1, 12 + 1))
     add_groupings(cohort)
     add_waves(cohort)
+    add_extra_at_risk_cols(cohort)
     return cohort
 
 
@@ -182,6 +204,15 @@ def add_waves(cohort):
 
     # Wave 9: Age 50 - 54
     s.mask((s == 0) & (cohort["age"] >= 50), 9, inplace=True)
+
+
+def add_extra_at_risk_cols(cohort):
+    """Add columns for extra at-risk groups."""
+
+    for col in extra_at_risk_cols:
+        date_col = col.replace("_group", "_dat")
+        if date_col in cohort.columns:
+            cohort[col] = cohort[date_col].notna()
 
 
 if __name__ == "__main__":

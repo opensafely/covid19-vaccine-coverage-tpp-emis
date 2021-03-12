@@ -209,3 +209,14 @@ def test_add_waves():
             continue
 
         assert row["wave"] == 0
+
+
+def test_add_extra_at_risk_cols():
+    raw_cohort = load_raw_cohort("tests/input.csv")
+    cohort = transform(raw_cohort)
+
+    for ix, row in cohort.iterrows():
+        assert row["cld_group"] == pd.notnull(row["cld_dat"])
+        assert row["chd_cov_group"] == pd.notnull(row["chd_cov_dat"])
+        assert row["spln_cov_group"] == pd.notnull(row["spln_cov_dat"])
+        assert row["learndis_group"] == pd.notnull(row["learndis_dat"])
