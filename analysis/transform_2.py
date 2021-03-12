@@ -7,7 +7,7 @@ from age_bands import age_bands
 from add_groupings_2 import add_groupings_2
 from groups import groups
 
-demographic_cols = ["age_band", "sex", "high_level_ethnicity"]
+demographic_cols = ["age_band", "sex", "high_level_ethnicity", "imd_band"]
 
 group_cols = [
     group for group in groups if "covax" not in group and "unstatvacc" not in group
@@ -62,6 +62,7 @@ def transform_rows(rows):
         if over_120_age(row):
             continue
 
+        add_imd_bands(row)
         add_ethnicity(row)
         add_high_level_ethnicity(row)
         add_missing_vacc_columns(row)
@@ -85,6 +86,19 @@ def over_120_age(row):
     """
 
     return int(row["age"]) >= 120
+
+
+def add_imd_bands(row):
+    """Add IMD band from 1 (most deprived) to 5 (least deprived), or 0 if missing."""
+
+    if not row["imd"]:
+        row["imd_band"] = 0
+        return
+
+    for band in range(1, 5 + 1):
+        if int(row["imd"]) < band * 32844 / 5:
+            row["imd_band"] = band
+            return
 
 
 def add_ethnicity(row):

@@ -16,6 +16,25 @@ def test_drop_non_fm_sex():
     assert sex_counts["M"] == raw_sex_counts["M"]
 
 
+def test_add_imd_bands():
+    raw_cohort = load_raw_cohort("tests/input.csv")
+    cohort = transform(raw_cohort)
+
+    for ix, row in cohort.iterrows():
+        if pd.isnull(row["imd"]):
+            assert row["imd_band"] == 0
+        elif row["imd"] <= 32844 * 0.2:
+            assert row["imd_band"] == 1
+        elif row["imd"] <= 32844 * 0.4:
+            assert row["imd_band"] == 2
+        elif row["imd"] <= 32844 * 0.6:
+            assert row["imd_band"] == 3
+        elif row["imd"] <= 32844 * 0.8:
+            assert row["imd_band"] == 4
+        else:
+            assert row["imd_band"] == 5
+
+
 def test_add_ethnicity():
     raw_cohort = load_raw_cohort("tests/input.csv")
     cohort = transform(raw_cohort)

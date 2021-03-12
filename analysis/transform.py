@@ -28,6 +28,7 @@ def transform(cohort):
 
     drop_non_fm_sex(cohort)
     drop_over_120_age(cohort)
+    add_imd_bands(cohort)
     add_ethnicity(cohort)
     add_high_level_ethnicity(cohort)
     add_missing_vacc_columns(cohort)
@@ -55,6 +56,20 @@ def drop_over_120_age(cohort):
 
     ix = cohort[cohort["age"] >= 120].index
     cohort.drop(ix, inplace=True)
+
+
+def add_imd_bands(cohort):
+    """Add IMD band from 1 (most deprived) to 5 (least deprived), or 0 if missing."""
+
+    cohort["imd_band"] = 0
+    s = cohort["imd_band"]
+
+    for band in range(1, 5 + 1):
+        s.mask(
+            ((band - 1) < cohort["imd"] * 5 / 32844) & (cohort["imd"] * 5 / 32844 < band),
+            band,
+            inplace=True,
+        )
 
 
 def add_ethnicity(cohort):
