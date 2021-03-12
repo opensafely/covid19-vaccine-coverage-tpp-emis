@@ -8,10 +8,19 @@ from add_groupings_2 import add_groupings_2
 from groups import groups
 
 demographic_cols = ["age_band", "sex", "high_level_ethnicity"]
+
 group_cols = [
     group for group in groups if "covax" not in group and "unstatvacc" not in group
 ]
-necessary_cols = demographic_cols + group_cols + ["patient_id", "vacc1_dat", "vacc2_dat"]
+
+extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat"]
+
+extra_vacc_cols = []
+for prefix in ["mo", "nx", "jn", "gs", "vl"]:
+    extra_vacc_cols.append(f"{prefix}d1rx_dat")
+    extra_vacc_cols.append(f"{prefix}d2rx_dat")
+
+necessary_cols = demographic_cols + group_cols + extra_cols + extra_vacc_cols
 
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
@@ -22,21 +31,8 @@ def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
 
 
 def transform_2(reader):
-    extra_fieldnames = [
-        "ethnicity",
-        "high_level_ethnicity",
-        "vacc1_dat",
-        "vacc2_dat",
-        "age_band",
-    ]
-    for prefix in ["mo", "nx", "jn", "gs", "vl"]:
-        extra_fieldnames.append(f"{prefix}d1rx_dat")
-        extra_fieldnames.append(f"{prefix}d2rx_dat")
-    fieldnames = reader.fieldnames + extra_fieldnames + list(groups)
-    fieldnames = [fn for fn in fieldnames if fn in necessary_cols]
-
     with NamedTemporaryFile("w+") as f:
-        writer = csv.DictWriter(f, fieldnames)
+        writer = csv.DictWriter(f, necessary_cols)
         writer.writeheader()
         for row in transform_rows(reader):
             writer.writerow(row)
@@ -46,9 +42,14 @@ def transform_2(reader):
         # We set parse_dates and dtype to ensure that the returned dataframe is
         # identical to that returned by the original transform.
         date_fieldnames = [
-            fn for fn in fieldnames if fn.endswith("_dat") and fn in necessary_cols
+            fn
+            for fn in necessary_cols
+            if fn.endswith("_dat") and fn not in extra_vacc_cols
         ]
-        dtypes = {"ethnicity": "int8", "high_level_ethnicity": "int8"}
+        dtypes = {
+            "ethnicity": "int8",
+            "high_level_ethnicity": "int8",
+        }
         cohort = pd.read_csv(f.name, parse_dates=date_fieldnames, dtype=dtypes)
 
     return cohort
