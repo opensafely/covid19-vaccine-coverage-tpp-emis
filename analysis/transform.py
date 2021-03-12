@@ -30,7 +30,7 @@ necessary_cols = (
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
     raw_cohort = load_raw_cohort(input_path)
-    cohort = transform(raw_cohort)
+    cohort = transform(raw_cohort)[necessary_cols]
     cohort.to_pickle(output_path)
 
 

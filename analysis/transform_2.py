@@ -37,7 +37,7 @@ def transform_2(reader):
         }
         cohort = pd.read_csv(f.name, parse_dates=date_fieldnames, dtype=dtypes)
 
-    return cohort
+    return cohort[necessary_cols]
 
 
 def transform_rows(rows):
