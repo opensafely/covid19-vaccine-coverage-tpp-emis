@@ -8,7 +8,7 @@ from add_groupings import add_groupings
 from groups import at_risk_groups, groups
 
 
-demographic_cols = ["age_band", "sex", "high_level_ethnicity", "imd_band"]
+demographic_cols = ["age_band", "sex", "ethnicity", "high_level_ethnicity", "imd_band"]
 
 group_cols = [
     group for group in groups if "covax" not in group and "unstatvacc" not in group
