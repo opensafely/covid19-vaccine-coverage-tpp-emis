@@ -15,3 +15,17 @@ groups = {
     "shield_group": "Patients who are shielding (High Risk from COVID-19)",
     "preg_group": "Patients who are pregnant",
 }
+
+
+at_risk_groups = {
+    "immuno_group": "Patients with Immunosuppression",
+    "ckd_group": "Patients with CKD",
+    "resp_group": "Patients who have Chronic Respiratory Disease",
+    "diab_group": "Patients with Diabetes",
+    "cld_group": "Patients with Chronic Liver disease",
+    "cns_group": "Patients with CNS Disease (including Stroke/TIA)",
+    "chd_cov_group": "Patients with Chronic heart disease",
+    "spln_cov_group": "Patients with Asplenia or Dysfunction of the Spleen",
+    "learndis_group": "Patients with Wider Learning Disability",
+    "sevment_group": "Patients with Severe Mental Health",
+}
