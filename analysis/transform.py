@@ -38,6 +38,7 @@ def transform(cohort):
     # required.
     add_age_bands(cohort, range(1, 12 + 1))
     add_groupings(cohort)
+    add_waves(cohort)
     return cohort
 
 
@@ -66,7 +67,8 @@ def add_imd_bands(cohort):
 
     for band in range(1, 5 + 1):
         s.mask(
-            ((band - 1) < cohort["imd"] * 5 / 32844) & (cohort["imd"] * 5 / 32844 < band),
+            ((band - 1) < cohort["imd"] * 5 / 32844)
+            & (cohort["imd"] * 5 / 32844 < band),
             band,
             inplace=True,
         )
@@ -141,6 +143,45 @@ def add_vacc_dates(cohort):
 
     cohort["vacc1_dat"] = cohort[["covadm1_dat", "covrx1_dat"]].min(axis=1)
     cohort["vacc2_dat"] = cohort[["covadm2_dat", "covrx2_dat"]].min(axis=1)
+
+
+def add_waves(cohort):
+    cohort["wave"] = 0
+    s = cohort["wave"]
+
+    # Wave 1: Residents in Care Homes
+    # (The spec includes staff in care homes, but occupation codes are not well
+    # recorded)
+    s.mask(cohort["longres_dat"].notnull(), 1, inplace=True)
+
+    # Wave 2: Age 80 or over
+    # (This spec includes frontline H&SC workers, but see above.)
+    s.mask((s == 0) & (cohort["age"] >= 80), 2, inplace=True)
+
+    # Wave 3: Age 75 - 79
+    s.mask((s == 0) & (cohort["age"] >= 75), 3, inplace=True)
+
+    # Wave 4: Clinically Extremely Vulnerable or age 70 - 74
+    s.mask(
+        (s == 0) & (cohort["shield_group"] | (cohort["age"] >= 70)), 4, inplace=True
+    )
+
+    # Wave 5: Age 65 - 69
+    s.mask((s == 0) & (cohort["age"] >= 65), 5, inplace=True)
+
+    # Wave 6: Age 16-64 in a defined At Risk group
+    s.mask(
+        (s == 0) & ((cohort["age"] >= 16) & cohort["atrisk_group"]), 6, inplace=True
+    )
+
+    # Wave 7: Age 60 - 64
+    s.mask((s == 0) & (cohort["age"] >= 60), 7, inplace=True)
+
+    # Wave 8: Age 55 - 59
+    s.mask((s == 0) & (cohort["age"] >= 55), 8, inplace=True)
+
+    # Wave 9: Age 50 - 54
+    s.mask((s == 0) & (cohort["age"] >= 50), 9, inplace=True)
 
 
 if __name__ == "__main__":

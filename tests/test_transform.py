@@ -156,3 +156,56 @@ def test_add_groupings():
             assert row["ast_group"]
         else:
             assert not row["ast_group"]
+
+
+def test_add_waves():
+    raw_cohort = load_raw_cohort("tests/input.csv")
+    cohort = transform(raw_cohort)
+
+    for ix, row in cohort.iterrows():
+        # Wave 1: Residents in Care Homes
+        if pd.notnull(row["longres_dat"]):
+            assert row["wave"] == 1
+            continue
+
+        # Wave 2: Age 80 or over
+        if 80 <= row["age"]:
+            assert row["wave"] == 2
+            continue
+
+        # Wave 3: Age 75 - 79
+        if 75 <= row["age"] < 80:
+            assert row["wave"] == 3
+            continue
+
+        # Wave 4: Clinically Extremely Vulnerable or age 70 - 74
+        if row["shield_group"] or (70 <= row["age"] < 75):
+            assert row["wave"] == 4
+            continue
+
+        # Wave 5: Age 65 - 69
+        if 65 <= row["age"] < 70:
+            assert row["wave"] == 5
+            continue
+
+        # Wave 6: Age 16-64 in a defined At Risk group
+        if (16 <= row["age"] < 65) and row["atrisk_group"]:
+            assert row["wave"] == 6
+            continue
+
+        # Wave 7: Age 60 - 64
+        if 60 <= row["age"] < 65:
+            assert row["wave"] == 7
+            continue
+
+        # Wave 8: Age 55 - 59
+        if 55 <= row["age"] < 60:
+            assert row["wave"] == 8
+            continue
+
+        # Wave 9: Age 50 - 54
+        if 50 <= row["age"] < 65:
+            assert row["wave"] == 9
+            continue
+
+        assert row["wave"] == 0

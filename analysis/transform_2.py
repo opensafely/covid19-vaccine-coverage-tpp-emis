@@ -13,7 +13,7 @@ group_cols = [
     group for group in groups if "covax" not in group and "unstatvacc" not in group
 ]
 
-extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat"]
+extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat", "wave"]
 
 extra_vacc_cols = []
 for prefix in ["mo", "nx", "jn", "gs", "vl"]:
@@ -69,6 +69,7 @@ def transform_rows(rows):
         add_vacc_dates(row)
         add_age_bands(row, range(1, 12 + 1))
         add_groupings_2(row)
+        add_waves(row)
         row = {k: v for k, v in row.items() if k in necessary_cols}
         yield row
 
@@ -189,6 +190,52 @@ def add_age_bands(row, bands):
             return
 
     assert False
+
+
+def add_waves(row):
+    age = int(row["age"])
+
+    if row["longres_dat"]:
+        # Wave 1: Residents in Care Homes
+        # (The spec includes staff in care homes, but occupation codes are not well
+        # recorded)
+        row["wave"] = 1
+
+    elif age >= 80:
+        # Wave 2: Age 80 or over
+        # (This spec includes frontline H&SC workers, but see above.)
+        row["wave"] = 2
+
+    elif 75 <= age <= 79:
+        # Wave 3: Age 75 - 79
+        row["wave"] = 3
+
+    elif row["shield_group"] or (70 <= age <= 74):
+        # Wave 4: Clinically Extremely Vulnerable or age 70 - 74
+        row["wave"] = 4
+
+    elif 65 <= age <= 69:
+        # Wave 5: Age 65 - 69
+        row["wave"] = 5
+
+    elif (16 <= age <= 64) and row["atrisk_group"]:
+        # Wave 6: Age 16-64 in a defined At Risk group
+        row["wave"] = 6
+
+    elif 60 <= age <= 64:
+        # Wave 7: Age 60 - 64
+        row["wave"] = 7
+
+    elif 55 <= age <= 59:
+        # Wave 8: Age 55 - 59
+        row["wave"] = 8
+
+    elif 50 <= age <= 54:
+        # Wave 9: Age 50 - 54
+        row["wave"] = 9
+
+    else:
+        row["wave"] = 0
 
 
 if __name__ == "__main__":
