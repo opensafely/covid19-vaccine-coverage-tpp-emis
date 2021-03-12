@@ -47,6 +47,8 @@ def build_generators(spec):
     generators = [
         ("age", lambda r: random.randrange(16, 100)),
         ("sex", lambda r: random.choices(["F", "M", "I", "U"], [49, 49, 1, 1])[0]),
+        ("imd", lambda r: random.randrange(1, 32844) if random.random() < 0.9 else ""),
+        ("stp", lambda r: random.choices([f"STP{n}" for n in range(5)])),
     ]
     seen_ethnicity = False
 

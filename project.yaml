@@ -18,24 +18,31 @@ actions:
       highly_sensitive:
         cohort: output/cohort.pickle
 
-  count_prevalences:
-    run: python:latest python analysis/count_prevalences.py
+  # count_prevalences:
+  #   run: python:latest python analysis/count_prevalences.py
+  #   needs: [transform]
+  #   outputs:
+  #     moderately_sensitive:
+  #       cohort: output/prevalences_*.pickle
+
+  # compute_uptake:
+  #   run: python:latest python analysis/compute_uptake.py
+  #   needs: [transform]
+  #   outputs:
+  #     moderately_sensitive:
+  #       cohort: output/coverage_*.csv
+
+  # report_uptake:
+  #   run: python:latest python analysis/report_uptake.py
+  #   needs: [compute_uptake]
+  #   outputs:
+  #     moderately_sensitive:
+  #       report: output/report_*.html
+  #       charts: output/coverage_*.png
+
+  compute_uptake_for_paper:
+    run: python:latest python analysis/compute_uptake_for_paper.py
     needs: [transform]
     outputs:
       moderately_sensitive:
-        cohort: output/prevalences_*.pickle
-
-  compute_uptake:
-    run: python:latest python analysis/compute_uptake.py
-    needs: [transform]
-    outputs:
-      moderately_sensitive:
-        cohort: output/coverage_*.csv
-
-  report_uptake:
-    run: python:latest python analysis/report_uptake.py
-    needs: [compute_uptake]
-    outputs:
-      moderately_sensitive:
-        report: output/report_*.html
-        charts: output/coverage_*.png
+        cohort: output/*/paper/*/*.csv

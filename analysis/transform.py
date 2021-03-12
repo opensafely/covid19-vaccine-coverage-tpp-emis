@@ -5,11 +5,32 @@ import pandas as pd
 
 from age_bands import add_age_bands
 from add_groupings import add_groupings
+from groups import at_risk_groups, groups
+
+
+demographic_cols = ["age_band", "sex", "ethnicity", "high_level_ethnicity", "imd_band"]
+
+group_cols = [
+    group for group in groups if "covax" not in group and "unstatvacc" not in group
+]
+
+extra_at_risk_cols = [group for group in at_risk_groups if group not in group_cols]
+
+extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat", "wave"]
+
+extra_vacc_cols = []
+for prefix in ["mo", "nx", "jn", "gs", "vl"]:
+    extra_vacc_cols.append(f"{prefix}d1rx_dat")
+    extra_vacc_cols.append(f"{prefix}d2rx_dat")
+
+necessary_cols = (
+    demographic_cols + group_cols + extra_at_risk_cols + extra_cols + extra_vacc_cols
+)
 
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
     raw_cohort = load_raw_cohort(input_path)
-    cohort = transform(raw_cohort)
+    cohort = transform(raw_cohort)[necessary_cols]
     cohort.to_pickle(output_path)
 
 
@@ -28,6 +49,7 @@ def transform(cohort):
 
     drop_non_fm_sex(cohort)
     drop_over_120_age(cohort)
+    add_imd_bands(cohort)
     add_ethnicity(cohort)
     add_high_level_ethnicity(cohort)
     add_missing_vacc_columns(cohort)
@@ -37,6 +59,8 @@ def transform(cohort):
     # required.
     add_age_bands(cohort, range(1, 12 + 1))
     add_groupings(cohort)
+    add_waves(cohort)
+    add_extra_at_risk_cols(cohort)
     return cohort
 
 
@@ -55,6 +79,21 @@ def drop_over_120_age(cohort):
 
     ix = cohort[cohort["age"] >= 120].index
     cohort.drop(ix, inplace=True)
+
+
+def add_imd_bands(cohort):
+    """Add IMD band from 1 (most deprived) to 5 (least deprived), or 0 if missing."""
+
+    cohort["imd_band"] = 0
+    s = cohort["imd_band"]
+
+    for band in range(1, 5 + 1):
+        s.mask(
+            ((band - 1) < cohort["imd"] * 5 / 32844)
+            & (cohort["imd"] * 5 / 32844 < band),
+            band,
+            inplace=True,
+        )
 
 
 def add_ethnicity(cohort):
@@ -126,6 +165,54 @@ def add_vacc_dates(cohort):
 
     cohort["vacc1_dat"] = cohort[["covadm1_dat", "covrx1_dat"]].min(axis=1)
     cohort["vacc2_dat"] = cohort[["covadm2_dat", "covrx2_dat"]].min(axis=1)
+
+
+def add_waves(cohort):
+    cohort["wave"] = 0
+    s = cohort["wave"]
+
+    # Wave 1: Residents in Care Homes
+    # (The spec includes staff in care homes, but occupation codes are not well
+    # recorded)
+    s.mask(cohort["longres_dat"].notnull(), 1, inplace=True)
+
+    # Wave 2: Age 80 or over
+    # (This spec includes frontline H&SC workers, but see above.)
+    s.mask((s == 0) & (cohort["age"] >= 80), 2, inplace=True)
+
+    # Wave 3: Age 75 - 79
+    s.mask((s == 0) & (cohort["age"] >= 75), 3, inplace=True)
+
+    # Wave 4: Clinically Extremely Vulnerable or age 70 - 74
+    s.mask(
+        (s == 0) & (cohort["shield_group"] | (cohort["age"] >= 70)), 4, inplace=True
+    )
+
+    # Wave 5: Age 65 - 69
+    s.mask((s == 0) & (cohort["age"] >= 65), 5, inplace=True)
+
+    # Wave 6: Age 16-64 in a defined At Risk group
+    s.mask(
+        (s == 0) & ((cohort["age"] >= 16) & cohort["atrisk_group"]), 6, inplace=True
+    )
+
+    # Wave 7: Age 60 - 64
+    s.mask((s == 0) & (cohort["age"] >= 60), 7, inplace=True)
+
+    # Wave 8: Age 55 - 59
+    s.mask((s == 0) & (cohort["age"] >= 55), 8, inplace=True)
+
+    # Wave 9: Age 50 - 54
+    s.mask((s == 0) & (cohort["age"] >= 50), 9, inplace=True)
+
+
+def add_extra_at_risk_cols(cohort):
+    """Add columns for extra at-risk groups."""
+
+    for col in extra_at_risk_cols:
+        date_col = col.replace("_group", "_dat")
+        if date_col in cohort.columns:
+            cohort[col] = cohort[date_col].notna()
 
 
 if __name__ == "__main__":
