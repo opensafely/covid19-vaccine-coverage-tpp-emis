@@ -46,3 +46,10 @@ actions:
     outputs:
       moderately_sensitive:
         cohort: output/*/paper/*/*.csv
+
+  compute_more_uptake_for_paper:
+    run: python:latest python analysis/compute_more_uptake_for_paper.py
+    needs: [transform]
+    outputs:
+      moderately_sensitive:
+        cohort: output/*/paper/all/wave.csv
