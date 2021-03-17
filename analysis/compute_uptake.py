@@ -37,6 +37,9 @@ def compute_uptake(cohort, event_col, stratification_col):
     stratification_vals = sorted(stratification_series.value_counts().index)
 
     event_dates = cohort[cohort[event_col].notnull()][event_col]
+    if event_dates.empty:
+        return
+
     earliest, latest = min(event_dates), max(event_dates)
     index = [str(date.date()) for date in pd.date_range(earliest, latest)]
 
