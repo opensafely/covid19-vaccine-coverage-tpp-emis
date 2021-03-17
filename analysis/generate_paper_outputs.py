@@ -136,6 +136,7 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
     uptake_total = uptake.iloc[:-1] / 1_000_000
     uptake_total["total"] = uptake_total.loc[:, "0":"9"].sum(axis=1)
     uptake_total["all_priority"] = uptake_total.loc[:, "1":"9"].sum(axis=1)
+    uptake_total = uptake_total.loc[:, ["total", "all_priority", "0"]]
     uptake_total = uptake_total[
         [col for col in wave_column_headings if col in uptake_total.columns]
     ]
