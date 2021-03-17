@@ -2,7 +2,14 @@ import pandas as pd
 
 
 def combine_cumsums(df1, df2):
-    assert list(df1.columns) == list(df2.columns)
+    df1 = df1.copy()
+    df2 = df2.copy()
+    for col in df1.columns:
+        if col not in df2.columns:
+            df2[col] = 0
+    for col in df2.columns:
+        if col not in df1.columns:
+            df1[col] = 0
 
     dates1 = list(df1.index)[:-1]
     earliest1, latest1 = min(dates1), max(dates1)

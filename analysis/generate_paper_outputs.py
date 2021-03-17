@@ -17,7 +17,7 @@ def run(backend):
     for wave in range(1, 9 + 1):
         print("-" * 80)
         print(f"wave: {wave}")
-        dir_path = f"released-output/{backend}/paper/wave-{wave}"
+        dir_path = f"released_outputs/output/{backend}/paper/wave-{wave}"
 
         uptake = pd.read_csv(f"{dir_path}/sex.csv", index_col=0)
         latest_date = datetime.strptime(uptake.index[-2], "%Y-%m-%d").date()

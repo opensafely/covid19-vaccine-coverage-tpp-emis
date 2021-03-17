@@ -18,20 +18,25 @@ extra_at_risk_cols = [group for group in at_risk_groups if group not in group_co
 
 extra_cols = ["patient_id", "vacc1_dat", "vacc2_dat", "wave"]
 
+vacc_cols = []
+for prefix in ["pf", "az"]:
+    vacc_cols.append(f"{prefix}d1rx_dat")
+    vacc_cols.append(f"{prefix}d2rx_dat")
+
 extra_vacc_cols = []
 for prefix in ["mo", "nx", "jn", "gs", "vl"]:
     extra_vacc_cols.append(f"{prefix}d1rx_dat")
     extra_vacc_cols.append(f"{prefix}d2rx_dat")
 
 necessary_cols = (
-    demographic_cols + group_cols + extra_at_risk_cols + extra_cols + extra_vacc_cols
+    demographic_cols + group_cols + extra_at_risk_cols + extra_cols + vacc_cols
 )
 
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
     raw_cohort = load_raw_cohort(input_path)
-    cohort = transform(raw_cohort)[necessary_cols]
-    cohort.to_pickle(output_path)
+    cohort = transform(raw_cohort)
+    cohort[necessary_cols].to_pickle(output_path)
 
 
 def load_raw_cohort(input_path):
@@ -150,11 +155,9 @@ def add_missing_vacc_columns(cohort):
     the spec.
     """
 
-    for prefix in ["mo", "nx", "jn", "gs", "vl"]:
-        assert f"{prefix}d1rx_dat" not in cohort
-        assert f"{prefix}d2rx_dat" not in cohort
-        cohort[f"{prefix}d1rx_dat"] = np.nan
-        cohort[f"{prefix}d2rx_dat"] = np.nan
+    for col in extra_vacc_cols:
+        cohort[col] = np.nan
+        cohort[col] = np.nan
 
 
 def add_vacc_dates(cohort):
