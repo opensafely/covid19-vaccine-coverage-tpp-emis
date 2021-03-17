@@ -6,7 +6,7 @@ from combine_cumsums import combine_cumsums
 
 
 def run():
-    for emis_path in sorted(glob.glob("released-output/emis/paper/*/*.csv")):
+    for emis_path in sorted(glob.glob("released_outputs/output/emis/paper/*/*.csv")):
         print(emis_path)
         tpp_path = emis_path.replace("/emis/", "/tpp/")
         emis_df = pd.read_csv(emis_path, index_col=0)
