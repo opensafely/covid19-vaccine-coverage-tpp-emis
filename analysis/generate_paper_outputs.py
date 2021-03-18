@@ -3,6 +3,7 @@ import os
 from datetime import datetime, timedelta
 
 import jinja2
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 import pandas as pd
@@ -11,6 +12,8 @@ from compute_uptake_for_paper import at_risk_cols, cols, demographic_cols, other
 from ethnicities import ethnicities, high_level_ethnicities
 from groups import groups, at_risk_groups
 
+# Ensure SVGs are created reproducibly
+mpl.rcParams["svg.hashsalt"] = 42
 
 wave_column_headings = {
     "total": "All",
