@@ -31,6 +31,14 @@ wave_column_headings = {
 }
 
 
+# Add thousands separators to all integers in HTML output
+class IntArrayFormatter(pd.io.formats.format.GenericArrayFormatter):
+    def _format_strings(self):
+        return [f" {v:,}" for v in self.values]
+
+pd.io.formats.format.IntArrayFormatter = IntArrayFormatter
+
+
 def run(base_path, earliest_date, latest_date):
     backend = base_path.rstrip("/").split("/")[-1]
     titles = get_titles()
