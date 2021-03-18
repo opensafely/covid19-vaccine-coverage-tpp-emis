@@ -144,6 +144,7 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
     uptake_total.plot()
     ax = plt.gca()
     ax.xaxis.set_tick_params(rotation=90)
+    ax.set_ylim(ymin=0)
     ax.set_title("Total number of patients vaccinated (million)")
     plt.savefig(f"{charts_path}/all_{key}_total.png", dpi=300, bbox_inches="tight")
     plt.close()
