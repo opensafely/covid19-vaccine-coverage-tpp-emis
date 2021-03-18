@@ -244,6 +244,7 @@ def generate_summary_table_for_wave(
         at_risk_summary, orient="index"
     )
     summaries["Other Groups"] = pd.DataFrame.from_dict(other_summary, orient="index")
+    summaries = {k: v for k, v in summaries.items() if not v.empty}
 
     summary = pd.concat(summaries.values(), keys=summaries.keys())
     summary["latest_pc"] = 100 * summary["latest"] / summary["total"]
