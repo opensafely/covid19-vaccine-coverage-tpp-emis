@@ -313,9 +313,14 @@ def compute_uptake_percent(uptake, labels):
     uptake_pc = 100 * uptake / uptake.loc["total"]
     uptake_pc.drop("total", inplace=True)
     uptake_pc.fillna(0, inplace=True)
-    uptake_pc.sort_values(
-        uptake_pc.last_valid_index(), axis=1, ascending=False, inplace=True
-    )
+    if set(uptake_pc.columns) == {"True", "False"}:
+        # This ensures that chart series are always same colour.
+        uptake_pc = uptake_pc[["True", "False"]]
+    else:
+        # Sort DataFrame columns so that legend is in the same order as chart series.
+        uptake_pc.sort_values(
+            uptake_pc.last_valid_index(), axis=1, ascending=False, inplace=True
+        )
     uptake_pc.rename(columns=labels, inplace=True)
     return uptake_pc
 
