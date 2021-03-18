@@ -298,7 +298,8 @@ def generate_charts_for_wave(
         uptake_pc.plot()
         ax = plt.gca()
         ax.set_title(title, fontsize=16)
-        ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
+        if col == "ethnicity":
+            ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
         ax.xaxis.set_tick_params(rotation=90)
         ax.yaxis.set_major_formatter(PercentFormatter())
         ax.set_ylim([0, 100])
