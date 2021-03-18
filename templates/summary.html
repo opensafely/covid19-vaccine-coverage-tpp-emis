@@ -14,16 +14,33 @@
       crossorigin="anonymous"
     />
 
-    <title>OpenSAFELY Vaccine Coverage Report</title>
+    <title>OpenSAFELY Vaccine Coverage Report: {{ subtitle }}</title>
   </head>
 
   <body>
     <div class="container">
-      <h1>OpenSAFELY Vaccine Coverage Report: Priority Group {{ wave }}</h1>
+      <h1 class="mt-5">OpenSAFELY Vaccine Coverage Report</h1>
+      <h2 class="mb-3">{{ subtitle }}</h2>
 
-      <br />
+      <p>Data from {{ backend }}, up to {{ latest_date }}.</p>
 
-      {{ table }}
+      {% if charts %}
+      <div class="row my-5">
+        {% for chart in charts %}
+        <div class="col-6">
+          <img
+            src="data:image/png;base64,{{ chart }}"
+            class="mx-auto d-block"
+            width="100%"
+          />
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="my-5">
+        {{ table }}
+      </div>
     </div>
   </body>
 </html>

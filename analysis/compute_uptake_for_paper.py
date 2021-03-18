@@ -19,7 +19,7 @@ cols = demographic_cols + at_risk_cols + other_cols
 
 def run(input_path="output/cohort.pickle", output_dir="output"):
     backend = os.getenv("OPENSAFELY_BACKEND", "expectations")
-    base_path = f"{output_dir}/{backend}/paper"
+    base_path = f"{output_dir}/{backend}/cumulative_coverage"
     cohort = pd.read_pickle(input_path)
 
     for event_col, key in [
