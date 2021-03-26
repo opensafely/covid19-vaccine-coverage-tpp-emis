@@ -1,37 +1,37 @@
-,,Vaccinated at 2021-03-07 (%),Vaccinated at 2021-03-07 (n),Population,Vaccinated at 2021-02-28 (%),Vaccinated in past week (%)
-Overall,-,37.1%,791406,2135378,18.3%,18.8%
-Sex,Female,38.4%,424606,1106553,20.3%,18.1%
-Sex,Male,35.7%,366800,1028825,16.1%,19.5%
-Ethnicity,White - British,40.5%,474964,1171457,20.1%,20.5%
-Ethnicity,White - Irish,38.7%,4361,11256,21.1%,17.6%
-Ethnicity,White - Any other White background,24.9%,22092,88753,12.8%,12.1%
-Ethnicity,Mixed - White and Black Caribbean,24.0%,959,4004,13.3%,10.7%
-Ethnicity,Mixed - White and Black African,23.7%,763,3220,13.5%,10.2%
-Ethnicity,Mixed - White and Asian,32.2%,812,2520,16.4%,15.8%
-Ethnicity,Mixed - Any other mixed background,28.6%,1533,5362,14.2%,14.4%
-Ethnicity,Asian or Asian British - Indian,37.8%,12691,33530,22.3%,15.5%
-Ethnicity,Asian or Asian British - Pakistani,26.3%,3689,14035,14.4%,11.9%
-Ethnicity,Asian or Asian British - Bangladeshi,27.0%,910,3367,14.6%,12.5%
-Ethnicity,Asian or Asian British - Any other Asian background,30.9%,5838,18865,18.0%,12.9%
-Ethnicity,Black or Black British - Caribbean,19.5%,3339,17136,10.5%,9.0%
-Ethnicity,Black or Black British - African,21.3%,4487,21042,13.4%,7.9%
-Ethnicity,Black or Black British - Any other Black background,21.2%,1183,5572,11.4%,9.8%
-Ethnicity,Other ethnic groups - Chinese,25.3%,2289,9044,11.1%,14.2%
-Ethnicity,Other ethnic groups - Any other ethnic group,24.5%,3521,14343,13.0%,11.6%
-Ethnicity,Patients with any other ethnicity code,36.5%,101850,278670,17.6%,19.0%
-Ethnicity,Ethnicity not stated,34.0%,5215,15351,15.5%,18.4%
-Ethnicity,Ethnicity not recorded,33.7%,140791,417732,15.9%,17.8%
-Ethnicity (broad categories),White,39.4%,501431,1271480,19.6%,19.9%
-Ethnicity (broad categories),Mixed,27.0%,4081,15134,14.2%,12.7%
-Ethnicity (broad categories),South Asian,33.2%,23156,69818,19.2%,13.9%
-Ethnicity (broad categories),Black,20.6%,9016,43764,12.1%,8.5%
-Ethnicity (broad categories),Other,24.9%,5817,23394,12.2%,12.6%
-Ethnicity (broad categories),Unknown,34.8%,247870,711767,16.5%,18.3%
-Index of Multiple Deprivation,1 (most deprived),34.0%,227297,668045,16.9%,17.1%
-Index of Multiple Deprivation,2,33.0%,100324,303737,16.3%,16.7%
-Index of Multiple Deprivation,3,37.0%,134134,362383,18.2%,18.9%
-Index of Multiple Deprivation,4,39.8%,154021,387247,19.7%,20.0%
-Index of Multiple Deprivation,5 (least deprived),42.6%,168441,395332,20.8%,21.8%
-Index of Multiple Deprivation,Unknown,38.5%,7161,18613,17.8%,20.6%
-Other Groups,Patients with Morbid Obesity,37.8%,20755,54838,24.4%,13.4%
-Other Groups,Patients who are pregnant,35.7%,70,196,17.9%,17.9%
+,,Vaccinated at 2021-03-17 (%),Vaccinated at 2021-03-17 (n),Population,Vaccinated at 2021-03-10 (%),Vaccinated in past week (%)
+Overall,-,59.9%,1280874,2139193,46.8%,13.1%
+Sex,Female,59.3%,657202,1108849,47.2%,12.1%
+Sex,Male,60.5%,623672,1030344,46.3%,14.2%
+Ethnicity,White - British,64.5%,757344,1175013,50.8%,13.7%
+Ethnicity,White - Irish,56.4%,6370,11291,47.4%,9.1%
+Ethnicity,White - Any other White background,40.0%,35602,88977,31.5%,8.6%
+Ethnicity,Mixed - White and Black Caribbean,40.7%,1631,4004,30.9%,9.8%
+Ethnicity,Mixed - White and Black African,38.6%,1253,3248,29.1%,9.5%
+Ethnicity,Mixed - White and Asian,51.4%,1295,2520,40.8%,10.6%
+Ethnicity,Mixed - Any other mixed background,47.1%,2541,5397,36.6%,10.5%
+Ethnicity,Asian or Asian British - Indian,53.4%,17913,33558,45.1%,8.3%
+Ethnicity,Asian or Asian British - Pakistani,42.3%,5957,14070,32.7%,9.6%
+Ethnicity,Asian or Asian British - Bangladeshi,50.5%,1708,3381,37.9%,12.6%
+Ethnicity,Asian or Asian British - Any other Asian background,48.2%,9114,18928,38.8%,9.4%
+Ethnicity,Black or Black British - Caribbean,32.7%,5614,17171,25.0%,7.7%
+Ethnicity,Black or Black British - African,35.7%,7532,21077,27.3%,8.5%
+Ethnicity,Black or Black British - Any other Black background,36.1%,2016,5586,27.6%,8.5%
+Ethnicity,Other ethnic groups - Chinese,48.0%,4368,9093,36.2%,11.9%
+Ethnicity,Other ethnic groups - Any other ethnic group,39.9%,5761,14427,31.1%,8.8%
+Ethnicity,Patients with any other ethnicity code,60.2%,168252,279608,46.3%,13.8%
+Ethnicity,Ethnicity not stated,57.0%,8708,15288,43.8%,13.2%
+Ethnicity,Ethnicity not recorded,57.1%,237804,416451,43.5%,13.6%
+Ethnicity (broad categories),White,62.7%,799330,1275288,49.4%,13.3%
+Ethnicity (broad categories),Mixed,44.4%,6734,15183,34.2%,10.1%
+Ethnicity (broad categories),South Asian,49.6%,34699,69965,40.6%,9.0%
+Ethnicity (broad categories),Black,34.6%,15176,43848,26.4%,8.2%
+Ethnicity (broad categories),Other,43.1%,10136,23527,33.1%,10.0%
+Ethnicity (broad categories),Unknown,58.3%,414771,711361,44.6%,13.7%
+Index of Multiple Deprivation,1 (most deprived),49.9%,156688,313859,36.6%,13.3%
+Index of Multiple Deprivation,2,55.3%,210637,380597,42.2%,13.2%
+Index of Multiple Deprivation,3,60.2%,270333,449197,46.8%,13.4%
+Index of Multiple Deprivation,4,63.3%,302911,478303,50.3%,13.1%
+Index of Multiple Deprivation,5 (least deprived),66.0%,329049,498554,53.2%,12.8%
+Index of Multiple Deprivation,Unknown,60.2%,11235,18662,47.8%,12.4%
+Other Groups,Patients with Morbid Obesity,50.3%,27636,54922,43.1%,7.2%
+Other Groups,Patients who are pregnant,60.7%,119,196,46.4%,14.3%
