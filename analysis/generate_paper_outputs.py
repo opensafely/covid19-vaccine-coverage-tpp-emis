@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 import jinja2
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
+from matplotlib.ticker import FixedFormatter, PercentFormatter
+from matplotlib.dates import TU, WeekdayLocator
 import pandas as pd
 
 from compute_uptake_for_paper import at_risk_cols, cols, demographic_cols, other_cols
@@ -152,13 +153,12 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
         [col for col in wave_column_headings if col in uptake_total.columns]
     ]
     uptake_total.rename(columns=wave_column_headings, inplace=True)
-    uptake_total.plot()
-    ax = plt.gca()
-    ax.xaxis.set_tick_params(rotation=90)
-    ax.set_ylim(ymin=0)
-    ax.set_title("Total number of patients vaccinated (million)")
-    plt.savefig(f"{charts_path}/all_{key}_total.png", dpi=300, bbox_inches="tight")
-    plt.close()
+    plot_chart(
+        uptake_total,
+        "Total number of patients vaccinated (million)",
+        f"{charts_path}/all_{key}_total.png",
+        is_percent=False,
+    )
 
     uptake_pc = 100 * uptake / uptake.loc["total"]
     uptake_pc.drop("total", inplace=True)
@@ -169,14 +169,11 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
         [col for col in wave_column_headings if col in uptake_pc.columns]
     ]
     uptake_pc.rename(columns=wave_column_headings, inplace=True)
-    uptake_pc.plot()
-    ax = plt.gca()
-    ax.set_title("Proportion of patients vaccinated")
-    ax.xaxis.set_tick_params(rotation=90)
-    ax.yaxis.set_major_formatter(PercentFormatter())
-    ax.set_ylim([0, 100])
-    plt.savefig(f"{charts_path}/all_{key}_percent.png", dpi=300, bbox_inches="tight")
-    plt.close()
+    plot_chart(
+        uptake_pc,
+        "Proportion of patients vaccinated",
+        f"{charts_path}/all_{key}_percent.png",
+    )
 
 
 def generate_report_for_all(
@@ -297,7 +294,7 @@ def generate_charts_for_wave(
     in_path, out_path, wave, key, earliest_date, latest_date, titles, label_maps
 ):
     for col in cols:
-        title = titles[col]
+        title = f"Vaccination coverage in Priority Group {wave}\nby {titles[col]}"
         labels = label_maps[col]
         uptake = load_uptake(
             f"{in_path}/wave_{wave}_{key}_by_{col}.csv", earliest_date, latest_date
@@ -305,19 +302,20 @@ def generate_charts_for_wave(
         if uptake is None:
             return
 
+        cohort_average = 100 * uptake.sum(axis=1).iloc[-2] / uptake.sum(axis=1).iloc[-1]
         uptake_pc = compute_uptake_percent(uptake, labels)
-        uptake_pc.plot()
-        ax = plt.gca()
-        ax.set_title(title, fontsize=16)
-        if col == "ethnicity":
-            ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
-        ax.xaxis.set_tick_params(rotation=90)
-        ax.yaxis.set_major_formatter(PercentFormatter())
-        ax.set_ylim([0, 100])
-        plt.savefig(
-            f"{out_path}/wave_{wave}_{key}_{col}.png", dpi=300, bbox_inches="tight"
+        plot_chart(
+            uptake_pc, title, f"{out_path}/wave_{wave}_{key}_{col}.png", cohort_average,
         )
-        plt.close()
+
+        if col == "ethnicity":
+            plot_chart(
+                uptake_pc,
+                title,
+                f"{out_path}/wave_{wave}_{key}_{col}_highlighting_bangladeshi_ethnicity.png",
+                cohort_average,
+                highlight_bangladeshi_ethnicity=True,
+            )
 
 
 def compute_uptake_percent(uptake, labels):
@@ -412,6 +410,72 @@ def get_label_maps():
         labels[group] = {"False": "no", "True": "yes"}
 
     return labels
+
+
+def plot_chart(
+    df,
+    title,
+    out_path,
+    cohort_average=None,
+    is_percent=True,
+    highlight_bangladeshi_ethnicity=False,
+):
+    df.index = pd.to_datetime(df.index)
+    ax = plt.gca()
+
+    if highlight_bangladeshi_ethnicity:
+        for col in df.columns:
+            if "Bangladeshi" in col:
+                c, alpha, thickness = "r", 1, 3
+                label = "Asian or Asian British - Bangladeshi"
+            elif "Asian or Asian British" in col:
+                c, alpha, thickness = "r", 0.6, 1
+                label = "Asian or Asian British"
+            else:
+                c, alpha, thickness = "b", 0.3, 1
+                label = "Other ethnicities"
+            ax.plot(df[col], alpha=alpha, c=c, label=label, linewidth=thickness)
+
+        handles, labels = ax.get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+        ax.legend(
+            by_label.values(),
+            by_label.keys(),
+            bbox_to_anchor=(1.05, 1),
+            loc=2,
+            borderaxespad=0,
+        )
+    else:
+        df.plot(ax=ax)
+        ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
+
+    ax.set_title(title)
+
+    # Add x-axis ticks for each Tuesday (the day that vaccines were first made
+    # available.)
+    week_days = df.loc[df.index.dayofweek == TU.weekday]
+    tick_labels = [
+        d.strftime("%d %b %Y")
+        if ix == 0 or d.month == 1 and d.day <= 7
+        else d.strftime("%d %b")
+        for ix, d in enumerate(week_days.index)
+    ]
+    ax.xaxis.set_major_locator(WeekdayLocator(byweekday=TU, interval=1))
+    ax.xaxis.set_major_formatter(FixedFormatter(tick_labels))
+    ax.xaxis.set_tick_params(rotation=90)
+
+    ax.set_ylim(ymin=0)
+
+    if is_percent:
+        ax.yaxis.set_major_formatter(PercentFormatter())
+        ax.set_ylim(ymax=100)
+
+    if cohort_average is not None:
+        ax.axhline(cohort_average, color="k", linestyle="--", alpha=0.5)
+        ax.text(df.index[0], cohort_average * 1.02, "latest overall cohort rate")
+
+    plt.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close()
 
 
 def load_uptake(path, earliest_date, latest_date):
