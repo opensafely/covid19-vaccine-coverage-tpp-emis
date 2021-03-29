@@ -5,17 +5,17 @@ import pandas as pd
 
 from age_bands import age_bands
 from add_groupings_2 import add_groupings_2
-from transform import extra_at_risk_cols, extra_vacc_cols, necessary_cols
+from transform_fast import extra_at_risk_cols, extra_vacc_cols, necessary_cols
 
 
 def run(input_path="output/input.csv", output_path="output/cohort.pickle"):
     with open(input_path) as f:
         reader = csv.DictReader(f)
-        cohort = transform_2(reader)
+        cohort = transform(reader)
     cohort.to_pickle(output_path)
 
 
-def transform_2(reader):
+def transform(reader):
     with NamedTemporaryFile("w+") as f:
         writer = csv.DictWriter(f, necessary_cols)
         writer.writeheader()

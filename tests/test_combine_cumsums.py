@@ -2,7 +2,7 @@ from pandas.testing import assert_index_equal, assert_series_equal
 
 from analysis.combine_cumsums import combine_cumsums
 from analysis.compute_uptake import compute_uptake
-from analysis.transform import load_raw_cohort, transform
+from analysis.transform_fast import load_raw_cohort, transform
 
 
 def test_combine_cumsums():
