@@ -297,7 +297,7 @@ def generate_charts_for_wave(
     in_path, out_path, wave, key, earliest_date, latest_date, titles, label_maps
 ):
     for col in cols:
-        title = titles[col]
+        title = f"Vaccination coverage in Priority Group {wave}\nby {titles[col]}"
         labels = label_maps[col]
         uptake = load_uptake(
             f"{in_path}/wave_{wave}_{key}_by_{col}.csv", earliest_date, latest_date
