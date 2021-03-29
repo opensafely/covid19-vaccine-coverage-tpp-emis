@@ -152,13 +152,12 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
         [col for col in wave_column_headings if col in uptake_total.columns]
     ]
     uptake_total.rename(columns=wave_column_headings, inplace=True)
-    uptake_total.plot()
-    ax = plt.gca()
-    ax.xaxis.set_tick_params(rotation=90)
-    ax.set_ylim(ymin=0)
-    ax.set_title("Total number of patients vaccinated (million)")
-    plt.savefig(f"{charts_path}/all_{key}_total.png", dpi=300, bbox_inches="tight")
-    plt.close()
+    plot_chart(
+        uptake_total,
+        "Total number of patients vaccinated (million)",
+        f"{charts_path}/all_{key}_total.png",
+        is_percent=False,
+    )
 
     uptake_pc = 100 * uptake / uptake.loc["total"]
     uptake_pc.drop("total", inplace=True)
@@ -169,14 +168,11 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
         [col for col in wave_column_headings if col in uptake_pc.columns]
     ]
     uptake_pc.rename(columns=wave_column_headings, inplace=True)
-    uptake_pc.plot()
-    ax = plt.gca()
-    ax.set_title("Proportion of patients vaccinated")
-    ax.xaxis.set_tick_params(rotation=90)
-    ax.yaxis.set_major_formatter(PercentFormatter())
-    ax.set_ylim([0, 100])
-    plt.savefig(f"{charts_path}/all_{key}_percent.png", dpi=300, bbox_inches="tight")
-    plt.close()
+    plot_chart(
+        uptake_pc,
+        "Proportion of patients vaccinated",
+        f"{charts_path}/all_{key}_percent.png",
+    )
 
 
 def generate_report_for_all(
@@ -305,19 +301,14 @@ def generate_charts_for_wave(
         if uptake is None:
             return
 
+        cohort_average = 100 * uptake.sum(axis=1).iloc[-2] / uptake.sum(axis=1).iloc[-1]
         uptake_pc = compute_uptake_percent(uptake, labels)
-        uptake_pc.plot()
-        ax = plt.gca()
-        ax.set_title(title, fontsize=16)
-        if col == "ethnicity":
-            ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
-        ax.xaxis.set_tick_params(rotation=90)
-        ax.yaxis.set_major_formatter(PercentFormatter())
-        ax.set_ylim([0, 100])
-        plt.savefig(
-            f"{out_path}/wave_{wave}_{key}_{col}.png", dpi=300, bbox_inches="tight"
+        plot_chart(
+            uptake_pc,
+            title,
+            f"{out_path}/wave_{wave}_{key}_{col}.png",
+            cohort_average,
         )
-        plt.close()
 
 
 def compute_uptake_percent(uptake, labels):
@@ -412,6 +403,29 @@ def get_label_maps():
         labels[group] = {"False": "no", "True": "yes"}
 
     return labels
+
+
+def plot_chart(df, title, out_path, cohort_average=None, is_percent=True):
+    df.index = pd.to_datetime(df.index)
+    df.plot()
+    ax = plt.gca()
+    ax.set_title(title)
+    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
+
+    ax.set_ylim(ymin=0)
+
+    if is_percent:
+        ax.yaxis.set_major_formatter(PercentFormatter())
+        ax.set_ylim(ymax=100)
+
+    if cohort_average is not None:
+        ax.axhline(cohort_average, color="k", linestyle="--", alpha=0.5)
+        ax.text(
+            df.index[0], cohort_average * 1.02, "latest overall cohort rate"
+        )
+
+    plt.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close()
 
 
 def load_uptake(path, earliest_date, latest_date):
