@@ -1,5 +1,5 @@
 from analysis.count_prevalences import count_prevalences
-from analysis.transform import load_raw_cohort, transform
+from analysis.transform_fast import load_raw_cohort, transform
 
 
 def test_count_prevalences():

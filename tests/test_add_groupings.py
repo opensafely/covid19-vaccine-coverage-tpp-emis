@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from analysis.transform import load_raw_cohort, transform
+from analysis.transform_fast import load_raw_cohort, transform
 
 
 def test_immuno_group():
