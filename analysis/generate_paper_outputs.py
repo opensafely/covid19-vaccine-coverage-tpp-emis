@@ -305,11 +305,17 @@ def generate_charts_for_wave(
         cohort_average = 100 * uptake.sum(axis=1).iloc[-2] / uptake.sum(axis=1).iloc[-1]
         uptake_pc = compute_uptake_percent(uptake, labels)
         plot_chart(
-            uptake_pc,
-            title,
-            f"{out_path}/wave_{wave}_{key}_{col}.png",
-            cohort_average,
+            uptake_pc, title, f"{out_path}/wave_{wave}_{key}_{col}.png", cohort_average,
         )
+
+        if col == "ethnicity":
+            plot_chart(
+                uptake_pc,
+                title,
+                f"{out_path}/wave_{wave}_{key}_{col}_highlighting_bangladeshi_ethnicity.png",
+                cohort_average,
+                highlight_bangladeshi_ethnicity=True,
+            )
 
 
 def compute_uptake_percent(uptake, labels):
@@ -406,12 +412,44 @@ def get_label_maps():
     return labels
 
 
-def plot_chart(df, title, out_path, cohort_average=None, is_percent=True):
+def plot_chart(
+    df,
+    title,
+    out_path,
+    cohort_average=None,
+    is_percent=True,
+    highlight_bangladeshi_ethnicity=False,
+):
     df.index = pd.to_datetime(df.index)
-    df.plot()
     ax = plt.gca()
+
+    if highlight_bangladeshi_ethnicity:
+        for col in df.columns:
+            if "Bangladeshi" in col:
+                c, alpha, thickness = "r", 1, 3
+                label = "Asian or Asian British - Bangladeshi"
+            elif "Asian or Asian British" in col:
+                c, alpha, thickness = "r", 0.6, 1
+                label = "Asian or Asian British"
+            else:
+                c, alpha, thickness = "b", 0.3, 1
+                label = "Other ethnicities"
+            ax.plot(df[col], alpha=alpha, c=c, label=label, linewidth=thickness)
+
+        handles, labels = ax.get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+        ax.legend(
+            by_label.values(),
+            by_label.keys(),
+            bbox_to_anchor=(1.05, 1),
+            loc=2,
+            borderaxespad=0,
+        )
+    else:
+        df.plot(ax=ax)
+        ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
+
     ax.set_title(title)
-    ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
 
     # Add x-axis ticks for each Tuesday (the day that vaccines were first made
     # available.)
@@ -434,9 +472,7 @@ def plot_chart(df, title, out_path, cohort_average=None, is_percent=True):
 
     if cohort_average is not None:
         ax.axhline(cohort_average, color="k", linestyle="--", alpha=0.5)
-        ax.text(
-            df.index[0], cohort_average * 1.02, "latest overall cohort rate"
-        )
+        ax.text(df.index[0], cohort_average * 1.02, "latest overall cohort rate")
 
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
