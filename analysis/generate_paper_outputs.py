@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 import jinja2
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
+from matplotlib.ticker import FixedFormatter, PercentFormatter
+from matplotlib.dates import TU, WeekdayLocator
 import pandas as pd
 
 from compute_uptake_for_paper import at_risk_cols, cols, demographic_cols, other_cols
@@ -411,6 +412,19 @@ def plot_chart(df, title, out_path, cohort_average=None, is_percent=True):
     ax = plt.gca()
     ax.set_title(title)
     ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0)
+
+    # Add x-axis ticks for each Tuesday (the day that vaccines were first made
+    # available.)
+    week_days = df.loc[df.index.dayofweek == TU.weekday]
+    tick_labels = [
+        d.strftime("%d %b %Y")
+        if ix == 0 or d.month == 1 and d.day <= 7
+        else d.strftime("%d %b")
+        for ix, d in enumerate(week_days.index)
+    ]
+    ax.xaxis.set_major_locator(WeekdayLocator(byweekday=TU, interval=1))
+    ax.xaxis.set_major_formatter(FixedFormatter(tick_labels))
+    ax.xaxis.set_tick_params(rotation=90)
 
     ax.set_ylim(ymin=0)
 
