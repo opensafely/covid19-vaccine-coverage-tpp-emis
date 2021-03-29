@@ -1,48 +1,48 @@
-,,Vaccinated at 2021-03-17 (%),Vaccinated at 2021-03-17 (n),Population,Vaccinated at 2021-03-10 (%),Vaccinated in past week (%)
-Overall,-,89.4%,2210096,2472862,87.6%,1.7%
-Sex,Female,90.1%,1136632,1261582,88.4%,1.7%
-Sex,Male,88.6%,1073464,1211280,86.8%,1.8%
-Ethnicity,White - British,93.2%,1350650,1448937,91.6%,1.7%
-Ethnicity,White - Irish,87.1%,13601,15624,85.7%,1.4%
-Ethnicity,White - Any other White background,66.4%,52612,79226,64.8%,1.6%
-Ethnicity,Mixed - White and Black Caribbean,65.4%,2079,3178,63.2%,2.2%
-Ethnicity,Mixed - White and Black African,65.9%,1694,2569,64.3%,1.6%
-Ethnicity,Mixed - White and Asian,82.7%,2114,2555,80.8%,1.9%
-Ethnicity,Mixed - Any other mixed background,74.8%,3703,4949,73.0%,1.8%
-Ethnicity,Asian or Asian British - Indian,87.0%,43806,50323,85.9%,1.2%
-Ethnicity,Asian or Asian British - Pakistani,71.5%,17878,25004,69.0%,2.5%
-Ethnicity,Asian or Asian British - Bangladeshi,82.4%,5103,6195,79.5%,2.8%
-Ethnicity,Asian or Asian British - Any other Asian background,81.0%,18193,22463,79.5%,1.5%
-Ethnicity,Black or Black British - Caribbean,57.7%,8638,14959,55.3%,2.4%
-Ethnicity,Black or Black British - African,61.2%,9338,15267,58.6%,2.6%
-Ethnicity,Black or Black British - Any other Black background,63.9%,2331,3647,61.8%,2.1%
-Ethnicity,Other ethnic groups - Chinese,71.1%,6685,9408,69.3%,1.7%
-Ethnicity,Other ethnic groups - Any other ethnic group,67.8%,8995,13258,66.1%,1.8%
-Ethnicity,Patients with any other ethnicity code,90.3%,295848,327453,88.5%,1.9%
-Ethnicity,Ethnicity not stated,84.1%,12684,15085,82.0%,2.0%
-Ethnicity,Ethnicity not recorded,85.8%,354046,412664,83.9%,1.9%
-Ethnicity (broad categories),White,91.8%,1416870,1543801,90.1%,1.6%
-Ethnicity (broad categories),Mixed,72.5%,9611,13258,70.5%,2.0%
-Ethnicity (broad categories),South Asian,81.7%,84994,103999,80.1%,1.7%
-Ethnicity (broad categories),Black,60.0%,20321,33887,57.5%,2.4%
-Ethnicity (broad categories),Other,69.2%,15687,22666,67.5%,1.7%
-Ethnicity (broad categories),Unknown,87.7%,662599,755216,85.8%,1.9%
-Index of Multiple Deprivation,1 (most deprived),82.8%,305088,368403,80.2%,2.6%
-Index of Multiple Deprivation,2,86.5%,382613,442505,84.4%,2.1%
-Index of Multiple Deprivation,3,90.0%,472045,524734,88.2%,1.7%
-Index of Multiple Deprivation,4,91.8%,506275,551642,90.4%,1.4%
-Index of Multiple Deprivation,5 (least deprived),93.1%,524790,563983,91.8%,1.2%
-Index of Multiple Deprivation,Unknown,89.4%,19278,21560,87.5%,1.9%
-Clinical Risk Groups,Patients in Any Clinical Risk Group,91.1%,825013,905709,89.4%,1.7%
-Clinical Risk Groups,Patients with Immunosuppression,92.9%,35007,37674,91.4%,1.5%
-Clinical Risk Groups,Patients with CKD,92.1%,107520,116683,90.5%,1.6%
-Clinical Risk Groups,Patients who have Chronic Respiratory Disease,91.0%,87878,96572,89.2%,1.8%
-Clinical Risk Groups,Patients with Diabetes,90.7%,295288,325458,89.0%,1.7%
-Clinical Risk Groups,Patients with Chronic Liver disease,90.4%,66493,73591,88.6%,1.8%
-Clinical Risk Groups,Patients with CNS Disease (including Stroke/TIA),91.0%,123060,135163,89.2%,1.9%
-Clinical Risk Groups,Patients with Chronic heart disease,91.9%,345030,375452,90.2%,1.7%
-Clinical Risk Groups,Patients with Asplenia or Dysfunction of the Spleen,93.6%,13258,14168,92.3%,1.2%
-Clinical Risk Groups,Patients with Wider Learning Disability,84.6%,4914,5810,79.9%,4.7%
-Clinical Risk Groups,Patients with Severe Mental Health,79.8%,18949,23758,76.9%,2.9%
-Other Groups,Patients with Morbid Obesity,90.6%,70749,78113,88.5%,2.1%
-Other Groups,Patients who are pregnant,91.7%,231,252,88.9%,2.8%
+,,Vaccinated at 2021-03-20 (%),Vaccinated at 2021-03-20 (n),Population,Vaccinated at 2021-03-13 (%),Vaccinated in past week (%)
+Overall,-,89.7%,2217460,2473177,88.6%,1.1%
+Sex,Female,90.4%,1140174,1261750,89.4%,1.0%
+Sex,Male,88.9%,1077286,1211427,87.8%,1.1%
+Ethnicity,White - British,93.6%,1355466,1448426,92.6%,1.0%
+Ethnicity,White - Irish,87.4%,13657,15617,86.5%,1.0%
+Ethnicity,White - Any other White background,66.9%,52990,79205,65.8%,1.1%
+Ethnicity,Mixed - White and Black Caribbean,66.7%,2114,3171,64.7%,2.0%
+Ethnicity,Mixed - White and Black African,66.5%,1708,2569,65.1%,1.4%
+Ethnicity,Mixed - White and Asian,83.3%,2128,2555,82.2%,1.1%
+Ethnicity,Mixed - Any other mixed background,75.5%,3731,4942,73.9%,1.6%
+Ethnicity,Asian or Asian British - Indian,87.4%,43967,50323,86.5%,0.8%
+Ethnicity,Asian or Asian British - Pakistani,72.2%,18032,24983,70.4%,1.8%
+Ethnicity,Asian or Asian British - Bangladeshi,83.4%,5159,6188,81.3%,2.0%
+Ethnicity,Asian or Asian British - Any other Asian background,81.6%,18291,22428,80.3%,1.2%
+Ethnicity,Black or Black British - Caribbean,58.8%,8792,14959,56.6%,2.2%
+Ethnicity,Black or Black British - African,62.2%,9492,15260,60.0%,2.2%
+Ethnicity,Black or Black British - Any other Black background,64.6%,2352,3640,63.1%,1.5%
+Ethnicity,Other ethnic groups - Chinese,71.6%,6741,9415,70.3%,1.3%
+Ethnicity,Other ethnic groups - Any other ethnic group,68.4%,9072,13265,67.1%,1.3%
+Ethnicity,Patients with any other ethnicity code,90.7%,296415,326963,89.6%,1.1%
+Ethnicity,Ethnicity not stated,84.5%,12733,15071,83.3%,1.2%
+Ethnicity,Ethnicity not recorded,85.6%,354529,414092,84.5%,1.2%
+Ethnicity (broad categories),White,92.2%,1422127,1543255,91.2%,1.0%
+Ethnicity (broad categories),Mixed,73.2%,9702,13258,71.6%,1.5%
+Ethnicity (broad categories),South Asian,82.2%,85456,103936,81.0%,1.2%
+Ethnicity (broad categories),Black,61.0%,20650,33873,58.9%,2.1%
+Ethnicity (broad categories),Other,69.7%,15813,22680,68.4%,1.3%
+Ethnicity (broad categories),Unknown,87.8%,663691,756140,86.7%,1.1%
+Index of Multiple Deprivation,1 (most deprived),83.2%,306782,368557,81.5%,1.7%
+Index of Multiple Deprivation,2,86.8%,384167,442575,85.5%,1.3%
+Index of Multiple Deprivation,3,90.2%,473585,524776,89.2%,1.0%
+Index of Multiple Deprivation,4,92.0%,507703,551684,91.2%,0.9%
+Index of Multiple Deprivation,5 (least deprived),93.2%,525924,564004,92.5%,0.7%
+Index of Multiple Deprivation,Unknown,89.4%,19278,21560,88.6%,0.8%
+Clinical Risk Groups,Patients in Any Clinical Risk Group,91.5%,828590,905772,90.4%,1.1%
+Clinical Risk Groups,Patients with Immunosuppression,93.2%,35189,37744,92.3%,0.9%
+Clinical Risk Groups,Patients with CKD,92.5%,108213,116942,91.5%,1.0%
+Clinical Risk Groups,Patients who have Chronic Respiratory Disease,91.4%,88354,96677,90.3%,1.1%
+Clinical Risk Groups,Patients with Diabetes,91.1%,296534,325444,90.0%,1.1%
+Clinical Risk Groups,Patients with Chronic Liver disease,90.8%,66836,73640,89.6%,1.1%
+Clinical Risk Groups,Patients with CNS Disease (including Stroke/TIA),91.5%,123655,135184,90.3%,1.2%
+Clinical Risk Groups,Patients with Chronic heart disease,92.3%,346528,375557,91.2%,1.1%
+Clinical Risk Groups,Patients with Asplenia or Dysfunction of the Spleen,93.9%,13307,14168,93.1%,0.8%
+Clinical Risk Groups,Patients with Wider Learning Disability,85.8%,4984,5810,82.4%,3.4%
+Clinical Risk Groups,Patients with Severe Mental Health,80.6%,19131,23737,78.5%,2.1%
+Other Groups,Patients with Morbid Obesity,91.1%,71092,78064,89.7%,1.3%
+Other Groups,Patients who are pregnant,91.7%,231,252,91.7%,0.0%
