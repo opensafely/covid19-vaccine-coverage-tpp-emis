@@ -53,7 +53,7 @@ def run(base_path, earliest_date, latest_date):
     os.makedirs(reports_path, exist_ok=True)
 
     for key in ["dose_1", "dose_2", "pf", "az"]:
-        in_path = f"{base_path}/cumulative_coverage/all/{key}/all_{key}_by_wave.csv"
+        in_path = f"{base_path}/cumulative_coverage/all/{key}/all_{key}_by_group.csv"
         generate_summary_table_for_all(
             in_path, tables_path, key, earliest_date, latest_date
         )
@@ -69,7 +69,7 @@ def run(base_path, earliest_date, latest_date):
         )
 
         for wave in range(1, 9 + 1):
-            in_path = f"{base_path}/cumulative_coverage/wave_{wave}/{key}"
+            in_path = f"{base_path}/cumulative_coverage/group_{wave}/{key}"
 
             generate_summary_table_for_wave(
                 in_path,
@@ -133,7 +133,7 @@ def generate_summary_table_for_all(
     summary = summary[list(columns)]
     summary.rename(columns=columns, inplace=True)
 
-    rows = {str(wave): f"Wave {wave}" for wave in range(1, 9 + 1)}
+    rows = {str(wave): f"Group {wave}" for wave in range(1, 9 + 1)}
     rows["0"] = "Other"
     rows["total"] = "Population"
     summary = summary.loc[list(rows)]
@@ -163,7 +163,7 @@ def generate_charts_for_all(in_path, charts_path, key, earliest_date, latest_dat
     uptake_pc = 100 * uptake / uptake.loc["total"]
     uptake_pc.drop("total", inplace=True)
     uptake_pc.fillna(0, inplace=True)
-    columns = {str(wave): f"Wave {wave}" for wave in range(1, 9 + 1)}
+    columns = {str(wave): f"Group {wave}" for wave in range(1, 9 + 1)}
     columns["0"] = "Other"
     uptake_pc = uptake_pc[
         [col for col in wave_column_headings if col in uptake_pc.columns]
@@ -216,7 +216,7 @@ def generate_summary_table_for_wave(
     in_path, out_path, wave, key, earliest_date, latest_date, titles, label_maps
 ):
     uptake = load_uptake(
-        f"{in_path}/wave_{wave}_{key}_by_sex.csv", earliest_date, latest_date
+        f"{in_path}/group_{wave}_{key}_by_sex.csv", earliest_date, latest_date
     )
     if uptake is None:
         return
@@ -232,7 +232,7 @@ def generate_summary_table_for_wave(
         title = titles[col]
         labels = label_maps[col]
         uptake = load_uptake(
-            f"{in_path}/wave_{wave}_{key}_by_{col}.csv", earliest_date, latest_date
+            f"{in_path}/group_{wave}_{key}_by_{col}.csv", earliest_date, latest_date
         )
 
         if col in demographic_cols:
@@ -269,7 +269,7 @@ def generate_summary_table_for_wave(
     summary = summary[list(columns)]
     summary.rename(columns=columns, inplace=True)
 
-    summary.to_csv(f"{out_path}/wave_{wave}_{key}.csv", float_format="%.1f%%")
+    summary.to_csv(f"{out_path}/group_{wave}_{key}.csv", float_format="%.1f%%")
 
 
 def compute_summary(uptake, labels=None):
@@ -297,7 +297,7 @@ def generate_charts_for_wave(
         title = f"Vaccination coverage in Priority Group {wave}\nby {titles[col]}"
         labels = label_maps[col]
         uptake = load_uptake(
-            f"{in_path}/wave_{wave}_{key}_by_{col}.csv", earliest_date, latest_date
+            f"{in_path}/group_{wave}_{key}_by_{col}.csv", earliest_date, latest_date
         )
         if uptake is None:
             return
@@ -305,14 +305,14 @@ def generate_charts_for_wave(
         cohort_average = 100 * uptake.sum(axis=1).iloc[-2] / uptake.sum(axis=1).iloc[-1]
         uptake_pc = compute_uptake_percent(uptake, labels)
         plot_chart(
-            uptake_pc, title, f"{out_path}/wave_{wave}_{key}_{col}.png", cohort_average,
+            uptake_pc, title, f"{out_path}/group_{wave}_{key}_{col}.png", cohort_average,
         )
 
         if col == "ethnicity":
             plot_chart(
                 uptake_pc,
                 title,
-                f"{out_path}/wave_{wave}_{key}_{col}_highlighting_bangladeshi_ethnicity.png",
+                f"{out_path}/group_{wave}_{key}_{col}_highlighting_bangladeshi_ethnicity.png",
                 cohort_average,
                 highlight_bangladeshi_ethnicity=True,
             )
@@ -348,13 +348,13 @@ def generate_report_for_wave(
     subtitle = f"{subtitle} / Priority Group {wave}"
 
     try:
-        summary = pd.read_csv(f"{tables_path}/wave_{wave}_{key}.csv", index_col=[0, 1])
+        summary = pd.read_csv(f"{tables_path}/group_{wave}_{key}.csv", index_col=[0, 1])
     except FileNotFoundError:
         return
 
     charts = []
     for col in cols:
-        with open(f"{charts_path}/wave_{wave}_{key}_{col}.png", "rb") as f:
+        with open(f"{charts_path}/group_{wave}_{key}_{col}.png", "rb") as f:
             charts.append(base64.b64encode(f.read()).decode("utf8"))
 
     ctx = {
@@ -370,7 +370,7 @@ def generate_report_for_wave(
     with open("templates/summary.html") as f:
         template = jinja2.Template(f.read())
 
-    with open(f"{out_path}/wave_{wave}_{key}.html", "w") as f:
+    with open(f"{out_path}/group_{wave}_{key}.html", "w") as f:
         f.write(template.render(ctx))
 
 
