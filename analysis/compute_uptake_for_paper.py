@@ -32,19 +32,19 @@ def run(input_path="output/cohort.pickle", output_dir="output"):
         dir_path = f"{base_path}/all/{key}"
         os.makedirs(dir_path, exist_ok=True)
         uptake = compute_uptake(cohort, event_col, "wave")
-        uptake.to_csv(f"{dir_path}/all_{key}_by_wave.csv")
+        uptake.to_csv(f"{dir_path}/all_{key}_by_group.csv")
 
         # For each wave, compute uptake by column
         for wave in range(1, 9 + 1):
             os.makedirs(dir_path, exist_ok=True)
             wave_cohort = cohort[cohort["wave"] == wave]
             for col in cols:
-                dir_path = f"{base_path}/wave_{wave}/{key}"
+                dir_path = f"{base_path}/group_{wave}/{key}"
                 os.makedirs(dir_path, exist_ok=True)
                 uptake = compute_uptake(wave_cohort, event_col, col)
                 if uptake is None:
                     continue
-                uptake.to_csv(f"{dir_path}/wave_{wave}_{key}_by_{col}.csv")
+                uptake.to_csv(f"{dir_path}/group_{wave}_{key}_by_{col}.csv")
 
 
 if __name__ == "__main__":
