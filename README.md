@@ -1,6 +1,6 @@
 # OpenSAFELY Covid-19 Raccine Coverage Report of 57.9million people
 
-This repo contains the code and configuration of our pre-print paper _Trends and clinical characteristics of COVID-19 vaccine recipients: a federated analysis of 57.9 million patients’ primary care records in situ using OpenSAFELY._
+This repo contains the code and configuration of our pre-print paper [_Trends and clinical characteristics of COVID-19 vaccine recipients: a federated analysis of 57.9 million patients’ primary care records in situ using OpenSAFELY_](https://doi.org/10.1101/2021.01.25.21250356).
 
 You can sign up for the [OpenSAFELY email newsletter here](https://opensafely.org/contact/) for updates about the COVID-19 vaccine reports and other OpenSAFELY projects.
 
@@ -8,7 +8,7 @@ This repo contains:
 
 * If you are interested in how we defined our variables, take a look at the [study definition](https://github.com/opensafely/covid19-vaccine-coverage-tpp-emis/blob/master/analysis/study_definition.py); this is written in python, but non-programmers should be able to understand what is going on there
 * All codelists used in defining varibables are available on [OpenCodelists](https://codelists.opensafely.org/). For this we used the national [COVID-19 Vaccination Uptake Reporting Specification developed by PRIMIS.](https://www.nottingham.ac.uk/primis/covid-19/covid-19.aspx)
-* We are updating this repo routinely as more data becomes available. The charts and tables that are in our preprint paper are [available here](https://github.com/opensafely/covid19-vaccine-coverage-tpp-emis/tree/2021-03-17/released_outputs/). We have made .csv files available here, with the data behind the tables and charts for inspection, further analysis and re-use by anyone as long as OpenSAFELY.org is credited and/or linked to.
+* We are updating this repo routinely as more data becomes available. The charts and tables that are in our preprint paper are [available here](https://github.com/opensafely/covid19-vaccine-coverage-tpp-emis/tree/2021-03-17/released_outputs/). We have made .csv files available, with the data behind the tables and charts for inspection, further analysis and re-use by anyone as long as OpenSAFELY.org is credited and/or linked to.
 
 
 ## Data
@@ -30,8 +30,6 @@ In `released_outputs/combined/`, you'll find:
 * `reports/all_[key].html`: report containing charts and table for whole population
 * `reports/wave_[n]_[key].html`: report containing charts and table for one priority
   group
-
-Data covers 2020-12-08 to 2021-03-07.
 
 # About the OpenSAFELY framework
 
