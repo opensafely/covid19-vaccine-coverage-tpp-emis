@@ -4,11 +4,12 @@ This repo contains the code and configuration of our pre-print paper [_Trends an
 
 You can sign up for the [OpenSAFELY email newsletter here](https://opensafely.org/contact/) for updates about the COVID-19 vaccine reports and other OpenSAFELY projects.
 
-This repo contains:
-
+## More information
+* This differs from our [weekly coverage report](https://reports.opensafely.org/reports/vaccine-coverage/) ([repo](https://github.com/opensafely/nhs-covid-vaccination-coverage)) in that it runs in both EMIS and TPP backends and utilises the official specification for JCVI priority groups. 
+* You may also be interested in our work on vaccines being recorded as declined ([preprint](https://www.medrxiv.org/content/10.1101/2021.08.05.21259863v1) / [repo](https://github.com/opensafely/covid-vaccine-not-received)). 
 * If you are interested in how we defined our variables, take a look at the [study definition](https://github.com/opensafely/covid19-vaccine-coverage-tpp-emis/blob/master/analysis/study_definition.py); this is written in python, but non-programmers should be able to understand what is going on there
 * All codelists used in defining varibables are available on [OpenCodelists](https://codelists.opensafely.org/). For this we used the national [COVID-19 Vaccination Uptake Reporting Specification developed by PRIMIS.](https://www.nottingham.ac.uk/primis/covid-19/covid-19.aspx)
-* We are updating this repo routinely as more data becomes available. The charts and tables that are in our preprint paper are [available here](https://github.com/opensafely/covid19-vaccine-coverage-tpp-emis/tree/2021-03-17/released_outputs/). We have made .csv files available, with the data behind the tables and charts for inspection, further analysis and re-use by anyone as long as OpenSAFELY.org is credited and/or linked to.
+* The charts and tables that are in our preprint paper are [available here](https://github.com/opensafely/covid19-vaccine-coverage-tpp-emis/tree/2021-03-17/released_outputs/). We have made .csv files available, with the data behind the tables and charts for inspection, further analysis and re-use by anyone as long as OpenSAFELY.org is credited and/or linked to.
 
 
 ## Data
