@@ -1,6 +1,6 @@
 # OpenSAFELY Covid-19 Vaccine Coverage Report of 57.9million people
 
-This repo contains the code and configuration of our pre-print paper [_Trends and clinical characteristics of COVID-19 vaccine recipients: a federated analysis of 57.9 million patients’ primary care records in situ using OpenSAFELY_](https://doi.org/10.1101/2021.01.25.21250356).
+This repo contains the code and configuration of our  paper [_Trends and clinical characteristics of COVID-19 vaccine recipients: a federated analysis of 57.9 million patients’ primary care records in situ using OpenSAFELY_](https://bjgp.org/content/early/2021/09/24/BJGP.2021.0376).
 
 You can sign up for the [OpenSAFELY email newsletter here](https://opensafely.org/contact/) for updates about the COVID-19 vaccine reports and other OpenSAFELY projects.
 
